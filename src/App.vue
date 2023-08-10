@@ -1,15 +1,17 @@
 <template>
   <TheHeader></TheHeader>
+  <LoginForm></LoginForm>
 </template>
 
 <script>
 import TheHeader from './components/TheHeader.vue'
+import LoginForm from './components/LoginForm.vue'
 
 export default {
   components: {
-    TheHeader
-  },
-  data() {}
+    TheHeader,
+    LoginForm
+  }
 }
 </script>
 

@@ -13445,4 +13445,44 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.form-element {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.form-element input {
+  width: 100%;
+  padding: 16px 20px 0;
+  height: 50px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  background-color: #444;
+  color: #ffffff;
+}
+.form-element input:focus ~ .floating-label, .form-element input:valid ~ .floating-label {
+  font-size: 11px;
+  top: 5px;
+}
+.form-element label {
+  color: #737373;
+}
+.form-element--light input {
+  color: #444;
+  background-color: white;
+  border: 1px solid #444;
+}
+
+.floating-label {
+  width: 100%;
+  position: absolute;
+  top: 25%;
+  left: 20px;
+  font-size: 18px;
+  color: #8c8c8c;
+  -webkit-transition: font 0.1s ease, top 0.1s ease, -webkit-transform 0.1s ease;
+  transition: font 0.1s ease, top 0.1s ease, -webkit-transform 0.1s ease;
+  transition: font 0.1s ease, top 0.1s ease, transform 0.1s ease;
+  transition: font 0.1s ease, top 0.1s ease, transform 0.1s ease, -webkit-transform 0.1s ease;
+}
 /*# sourceMappingURL=style.css.map */
