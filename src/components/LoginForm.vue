@@ -1,5 +1,5 @@
 <template>
-  <div class="login-form-container w-50 m-auto">
+  <div class="login-form-container">
     <h1 class="login-page-title">Accedi</h1>
 
     <form class="login-form">
@@ -14,7 +14,9 @@
       <button class="btn btn-sm btn-primary login-button">Accedi</button>
     </form>
 
-    <div class="other-login">Prima volta su StartFlix? <router-link to="/signup">Registrati</router-link></div>
+    <div class="other-login">
+      Prima volta su StartFlix? <router-link to="/signup">Registrati</router-link>
+    </div>
   </div>
 </template>
 
@@ -26,6 +28,7 @@
   border-radius: 4px;
   min-height: 550px;
   max-width: 450px;
+  margin: 0 auto;
 }
 
 .login-page-title {

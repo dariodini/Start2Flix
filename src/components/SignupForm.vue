@@ -1,12 +1,12 @@
 <template>
-  <div class="signup w-50">
+  <div class="signup">
     <h1 class="signup__title">Crea una password per iniziare l'abbonamento</h1>
     <h4 class="signup__subtitle">Mancano solo alcuni passaggi!</h4>
     <h4 class="signup__subtitle">Anche noi detestiamo la burocrazia.</h4>
 
     <form action class="signup__form">
       <div class="form-element form-element--light">
-        <input type="email" name="email" id="email" required />
+        <input v-model="email" type="email" name="email" id="email" required />
         <label class="floating-label" for="email">Email</label>
       </div>
 
@@ -26,11 +26,22 @@
 </template>
 
 <script>
-export default {}
+import { mapGetters } from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters(['getEmail']),
+    email() {
+      return this.getEmail
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">
 .signup {
+  margin: 0 auto;
+  max-width: 50%;
   padding: 1.5rem;
   background-color: white;
   border-radius: 4px;

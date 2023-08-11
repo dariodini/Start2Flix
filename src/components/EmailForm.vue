@@ -1,14 +1,33 @@
 <template>
-  <form action="" class="email-form">
+  <form class="email-form" @submit.prevent="submitEmail">
     <div class="form-group">
       <div class="form-element form-element--transparent">
-        <input type="email" name="email" id="email" required />
+        <input v-model="email" type="email" name="email" id="email" required />
         <label class="floating-label" for="email">Indirizzo Email</label>
       </div>
       <input type="submit" value="Inizia >" class="btn btn-primary email-form__button" />
     </div>
   </form>
 </template>
+
+<script>
+import { mapActions } from 'vuex'
+
+export default {
+  data() {
+    return {
+      email: ''
+    }
+  },
+  methods: {
+    ...mapActions(['updateEmail']),
+    submitEmail() {
+      this.updateEmail(this.email)
+      this.$router.push('/signup')
+    }
+  }
+}
+</script>
 
 <style scoped lang="scss">
 .email-form {
