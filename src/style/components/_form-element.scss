@@ -1,10 +1,12 @@
 .form-element {
+  $padding-laterale: 20px;
+
   margin-bottom: $spacer * 1.5;
   position: relative;
 
   input {
     width: 100%;
-    padding: 16px 20px 0;
+    padding: 16px $padding-laterale 0;
     height: 50px;
     font-size: 1rem;
     border: none;
@@ -22,13 +24,21 @@
 
   label {
     color: #737373;
+    max-width: calc(100% - $padding-laterale * 2);
   }
 
   &--light {
     input {
       color: #444;
       background-color: white;
-      border: 1px solid #444;
+    }
+  }
+
+  &--transparent {
+    input {
+      opacity: 0.75;
+      border: #737373;
+      border: 1px solid #737373;
     }
   }
 }

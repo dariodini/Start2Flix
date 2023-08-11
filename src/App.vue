@@ -1,16 +1,16 @@
 <template>
   <TheHeader></TheHeader>
-  <LoginForm></LoginForm>
+  <div class="container">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 import TheHeader from './components/TheHeader.vue'
-import LoginForm from './components/LoginForm.vue'
 
 export default {
   components: {
-    TheHeader,
-    LoginForm
+    TheHeader
   }
 }
 </script>
