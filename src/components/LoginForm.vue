@@ -14,17 +14,18 @@
       <button class="btn btn-sm btn-primary login-button">Accedi</button>
     </form>
 
-    <div class="other-login">Prima volta su StartFlix? <a href="#">Registrati</a></div>
+    <div class="other-login">Prima volta su StartFlix? <router-link to="/signup">Registrati</router-link></div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .login-form-container {
-  padding: 1rem;
+  padding: 60px 60px 40px;
   background-color: rgba(0, 0, 0, 0.75);
   background-color: #292929;
   border-radius: 4px;
   min-height: 550px;
+  max-width: 450px;
 }
 
 .login-page-title {

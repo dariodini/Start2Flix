@@ -1,8 +1,8 @@
 <template>
   <header class="header">
     <div class="container">
-      <img src="../assets/logo.png" alt="logo" class="header__logo" />
-      <a href="#" class="btn btn-primary header__action">Accedi</a>
+      <router-link to="/"><img src="../assets/logo.png" alt="logo" class="header__logo" /></router-link>
+      <router-link to="/login" class="btn btn-primary header__action">Accedi</router-link>
     </div>
   </header>
 </template>
@@ -11,7 +11,7 @@
 
 <style scoped lang="scss">
 .header {
-  height: 80px;
+  height: 90px;
   display: flex;
   align-items: center;
   .container {
@@ -21,7 +21,7 @@
   }
 
   &__logo {
-    width: 175px;
+    width: 200px;
   }
 
   &__action {
