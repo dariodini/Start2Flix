@@ -2,7 +2,7 @@
   <div class="login-form-container">
     <h1 class="login-page-title">Accedi</h1>
 
-    <form class="login-form">
+    <form class="login-form" @submit.prevent="selectProfile">
       <div class="form-element">
         <input type="text" name="username" id="username" placeholder="" required />
         <label class="floating-label" for="username">Email o Numero di telefono</label>
@@ -19,6 +19,16 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    selectProfile() {
+      this.$router.push('/select-profile')
+    }
+  }
+}
+</script>
 
 <style scoped lang="scss">
 .login-form-container {

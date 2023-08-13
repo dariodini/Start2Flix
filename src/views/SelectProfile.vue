@@ -2,7 +2,7 @@
   <div class="profiles">
     <h1 class="profiles__title">Chi vuole guardare StartFlix?</h1>
     <div class="profiles__list">
-      <profile v-for="profile in profiles" :key="profile" :profile="profile" to="/prova"></profile>
+      <profile v-for="profile in profiles" :key="profile" :profile="profile" to="/browse"></profile>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
 
 <style lang="scss" scoped>
 .profiles {
-  padding: 5rem 0;
+  padding: 10rem 0;
   width: 100%;
   display: flex;
   justify-content: center;
