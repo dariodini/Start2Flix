@@ -1,13 +1,28 @@
 <template>
-  <header class="header">
+  <header class="header" v-if="!hideHeader">
     <div class="container">
-      <router-link to="/"><img src="../assets/logo.png" alt="logo" class="header__logo" /></router-link>
-      <router-link to="/login" class="btn btn-primary header__action">Accedi</router-link>
+      <router-link to="/"
+        ><img src="../assets/logo.png" alt="logo" class="header__logo"
+      /></router-link>
+      <router-link v-if="showLoginButton" to="/login" class="btn btn-primary header__action"
+        >Accedi</router-link
+      >
     </div>
   </header>
 </template>
 
-<script></script>
+<script>
+export default {
+  computed: {
+    hideHeader() {
+      return this.$route.meta.hideHeader
+    },
+    showLoginButton() {
+      return this.$route.meta.showLoginButton
+    }
+  }
+}
+</script>
 
 <style scoped lang="scss">
 .header {

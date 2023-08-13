@@ -8,10 +8,18 @@ import SelectProfile from '../views/SelectProfile.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', component: LandingView },
-    { path: '/login', component: LoginView },
-    { path: '/signup', component: SignupView },
-    { path: '/select-profile', component: SelectProfile },
+    { path: '/', component: LandingView, meta: {
+      showLoginButton: true
+    } },
+    { path: '/login', component: LoginView, meta: {
+      showLoginButton: true
+    } },
+    { path: '/signup', component: SignupView, meta: {
+      showLoginButton: true
+    } },
+    { path: '/select-profile', component: SelectProfile, meta: {
+      hideHeader: true
+    } },
   ]
 })
 
