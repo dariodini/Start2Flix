@@ -1,6 +1,6 @@
 <template>
   <header class="header" v-if="!hideHeader">
-    <div class="container">
+    <div class="start-container">
       <router-link to="/"
         ><img src="../assets/logo.png" alt="logo" class="header__logo"
       /></router-link>
@@ -27,9 +27,8 @@ export default {
 <style scoped lang="scss">
 .header {
   height: 90px;
-  display: flex;
-  align-items: center;
-  .container {
+  .start-container {
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;

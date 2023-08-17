@@ -1,0 +1,11 @@
+.start-container {
+  --max-width: 1500px;
+
+  margin: 0 auto;
+  padding: 0 $spacer * 3;
+  max-width: var(--max-width);
+
+  @include media-breakpoint-down(sm) {
+    padding: 0 $spacer * 1.5;
+  }
+}
