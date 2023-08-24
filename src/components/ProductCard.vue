@@ -48,6 +48,7 @@ export default {
   &__image-container {
     img {
       width: 100%;
+      cursor: pointer;
       pointer-events: auto;
     }
   }
