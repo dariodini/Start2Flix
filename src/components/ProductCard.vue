@@ -22,35 +22,37 @@
 
 <script>
 export default {
-  props: ['product']
-}
+  props: ["product"],
+};
 </script>
 
 <style lang="scss" scoped>
 .product-card {
   $self: &;
-  width: fit-content;
   transform-origin: center center;
+  pointer-events: none;
+
+  transform-origin: center;
+  transition: 0.3s all ease-in-out;
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
-
-    // TODO: Giusto solo per md, sistemare per tutti gli altri
-    transform: translate(-10%, -10%);
-    position: absolute;
-
+    transition: 0.4s all ease-in-out;
+    transform: scale(1.1);
+    pointer-events: auto;
     #{$self}__details {
-      display: block;
+      opacity: 1;
     }
   }
 
   &__image-container {
     img {
       width: 100%;
+      pointer-events: auto;
     }
   }
   &__details {
-    display: none;
+    opacity: 0;
     padding: 16px;
     background-color: #141414;
   }
