@@ -1,4 +1,6 @@
-import {createStore} from 'vuex';
+import { createStore } from 'vuex';
+import createPersistedState from "vuex-plugin-persistedstate";
+import axios from 'axios';
 
 const store = createStore({
   state: {
@@ -16,9 +18,7 @@ const store = createStore({
   },
   actions: {
     updateEmail({ commit }, email) {
-      commit('setEmail', email);
-    }
-  }
+  plugins: [createPersistedState()],
 });
 
-export default store
+export default store;
