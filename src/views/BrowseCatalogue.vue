@@ -1,17 +1,24 @@
 <template>
-  <div class="row">
-    <div
-      v-for="product in products"
-      :key="product"
-      class="product col-lg-3 col-md-4 col-sm-6 col-12"
-    >
-      <product-card :product="product"></product-card>
+  <div class="products-container" v-if="!isMoviesLoading">
+    <div class="section movies" v-if="movies.results.length > 0">
+      <div class="section__title"><span>Movies</span></div>
+      <div class="row">
+        <div
+          v-for="product in movies.results"
+          :key="product.id"
+          class="product col-xl-2 col-lg-3 col-md-4 col-sm-6 col-4"
+        >
+          <product-card :product="product" @open-modal="openModal"></product-card>
+        </div>
+      </div>
     </div>
   </div>
+  <div v-else>Caricamento in corso...</div>
 </template>
 
 <script>
-import ProductCard from "../components/ProductCard.vue";
+import ProductCard from '../components/productcard.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -19,25 +26,11 @@ export default {
   },
   data() {
     return {
-      products: [
-        {
-          title: "Stranger Things",
-          imageUrl: "src/assets/stranger-things.jpeg",
-        },
-        {
-          title: "Stranger Things",
-          imageUrl: "src/assets/stranger-things.jpeg",
-        },
-        {
-          title: "Stranger Things",
-          imageUrl: "src/assets/stranger-things.jpeg",
-        },
-        {
-          title: "Stranger Things",
-          imageUrl: "src/assets/stranger-things.jpeg",
-        },
-      ],
-    };
+  async beforeMount() {
+    await this.$store.dispatch('fetchMovies')
+  },
+  computed: {
+    ...mapGetters(['movies', 'isMoviesLoading'])
   },
 };
 </script>
