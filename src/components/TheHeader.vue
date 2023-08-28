@@ -27,6 +27,7 @@ export default {
 <style scoped lang="scss">
 .header {
   height: 90px;
+  margin-bottom: 2rem;
   .start-container {
     height: 100%;
     display: flex;
