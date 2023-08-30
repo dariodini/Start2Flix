@@ -2,9 +2,9 @@
   <div class="product-card">
     <div class="product-card__image-container" @click="openModal">
       <img
-        :src="`https://image.tmdb.org/t/p/original` + product.poster_path"
-        :alt="`Poster of '` + product.title + `'`"
-        class="product-card__image"
+        :src="`https://image.tmdb.org/t/p/w780${product.poster_path}`"
+        :alt="`Poster of '${product.title}'`"
+        class="product-card__image d-block w-100"
       />
     </div>
 
@@ -32,7 +32,7 @@ export default {
   props: ['product'],
   methods: {
     openModal() {
-      this.$emit('open-modal', this.product)
+      this.emitter.emit('open-modal', this.product)
     }
   }
 }
@@ -79,6 +79,10 @@ export default {
     padding: 14px;
     background-color: #141414;
     transition: 0.3s all ease-in-out;
+
+    @media screen and (max-width: 576px) {
+      display: none;
+    }
   }
   &__title {
     color: white;
