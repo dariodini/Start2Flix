@@ -6,6 +6,13 @@
     @open-modal="openModal"
   ></product-section>
 
+  <product-section
+    :isProductsLoading="isSeriesLoading"
+    :products="series"
+    title="Series"
+    @open-modal="openModal"
+  ></product-section>
+
   <product-detail-modal
     :product="selectedProduct"
     v-if="showModal"
@@ -31,9 +38,10 @@ export default {
   },
   async beforeMount() {
     await this.$store.dispatch('fetchMovies')
+    await this.$store.dispatch('fetchSeries')
   },
   computed: {
-    ...mapGetters(['movies', 'isMoviesLoading'])
+    ...mapGetters(['movies', 'isMoviesLoading', 'series', 'isSeriesLoading'])
   },
   created() {
     this.emitter.on('open-modal', this.handleOpenModal)

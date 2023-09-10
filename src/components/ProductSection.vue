@@ -52,6 +52,7 @@ export default {
   }
 
   .row {
+    padding: 1rem;
     flex-wrap: nowrap;
     overflow: auto;
     scroll-snap-type: x mandatory;
@@ -64,11 +65,6 @@ export default {
 
     .product {
       scroll-snap-align: start;
-      transition: box-shadow 0.3s ease-in-out;
-
-      &:hover {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
     }
   }
   .carousel-button {

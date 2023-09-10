@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import createPersistedState from "vuex-plugin-persistedstate";
+// import createPersistedState from "vuex-plugin-persistedstate";
 import axios from 'axios';
 
 const API_KEY = import.meta.env.VITE_APP_API_KEY;
@@ -11,6 +11,8 @@ const store = createStore({
     isMoviesLoading: false,
     movieDetails: [],
     ismovieDetailsLoading: false,
+    series: [],
+    isSeriesLoading: false,
   },
   getters: {
     getEmail(state) {
@@ -28,6 +30,12 @@ const store = createStore({
     isMovieDetailsLoading(state){
       return state.ismovieDetailsLoading
     },
+    series(state){
+      return state.series
+    },
+    isSeriesLoading(state){
+      return state.isSeriesLoading
+    },
   },
   mutations: {
     SET_EMAIL(state, email) {
@@ -44,7 +52,13 @@ const store = createStore({
     },
     SET_MOVIE_DETAILS_LOADING(state, isMovieDetailsLoading){
       state.ismovieDetailsLoading = isMovieDetailsLoading
-    }
+    },
+    SET_SERIES(state, series){
+      state.series = series
+    },
+    SET_SERIES_LOADING(state, isSeriesLoading){
+      state.isSeriesLoading = isSeriesLoading
+    },
   },
   actions: {
     updateEmail({ commit }, email) {
@@ -85,8 +99,27 @@ const store = createStore({
       } finally {
         commit('SET_MOVIE_DETAILS_LOADING', false);
       }
-    }
+    },
+    async fetchSeries({commit}){
+      commit('SET_SERIES_LOADING', true);
+      const options = {
+        method: 'GET',
+        url: `https://api.themoviedb.org/3/trending/tv/day?language=it-IT&${API_KEY}`,
+        headers: {
+          accept: 'application/json',
+        }
+      };
+      try {
+        const response = await axios.request(options);
+        commit('SET_SERIES', response.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        commit('SET_SERIES_LOADING', false);
+      }
+    },
   },
+  // plugins: [createPersistedState()],
 });
 
 export default store;
