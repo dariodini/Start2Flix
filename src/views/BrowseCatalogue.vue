@@ -21,43 +21,43 @@
 </template>
 
 <script>
-import ProductSection from '../components/ProductSection.vue'
-import ProductDetailModal from '../components/ProductDetailModal.vue'
-import { mapGetters } from 'vuex'
+import ProductSection from "../components/ProductSection.vue";
+import ProductDetailModal from "../components/ProductDetailModal.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
     ProductDetailModal,
-    ProductSection
+    ProductSection,
   },
   data() {
     return {
       showModal: false,
-      selectedProduct: null
-    }
+      selectedProduct: null,
+    };
   },
   async beforeMount() {
-    await this.$store.dispatch('fetchMovies')
-    await this.$store.dispatch('fetchSeries')
+    await this.$store.dispatch("fetchMovies");
+    await this.$store.dispatch("fetchSeries");
   },
   computed: {
-    ...mapGetters(['movies', 'isMoviesLoading', 'series', 'isSeriesLoading'])
+    ...mapGetters(["movies", "isMoviesLoading", "series", "isSeriesLoading"]),
   },
   created() {
-    this.emitter.on('open-modal', this.handleOpenModal)
+    this.emitter.on("open-modal", this.handleOpenModal);
   },
   methods: {
     openModal(product) {
-      this.showModal = true
-      this.selectedProduct = product
+      this.showModal = true;
+      this.selectedProduct = product;
     },
     closeModal() {
-      this.showModal = false
+      this.showModal = false;
     },
     handleOpenModal(product) {
-      this.selectedProduct = product
-      this.showModal = true
-    }
-  }
-}
+      this.selectedProduct = product;
+      this.showModal = true;
+    },
+  },
+};
 </script>

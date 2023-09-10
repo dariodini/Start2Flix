@@ -27,22 +27,22 @@
 </template>
 
 <script>
-import ProductCard from './productcard.vue'
+import ProductCard from "./productcard.vue";
 
 export default {
-  props: ['isProductsLoading', 'products', 'title'],
+  props: ["isProductsLoading", "products", "title"],
   components: {
-    ProductCard
+    ProductCard,
   },
   methods: {
     scrollLeft() {
-      this.$refs.row.scrollLeft -= 200
+      this.$refs.row.scrollLeft -= 200;
     },
     scrollRight() {
-      this.$refs.row.scrollLeft += 200
-    }
-  }
-}
+      this.$refs.row.scrollLeft += 200;
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -65,6 +65,11 @@ export default {
 
     .product {
       scroll-snap-align: start;
+      transition: box-shadow 0.3s ease-in-out;
+
+      &:hover {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
     }
   }
   .carousel-button {
