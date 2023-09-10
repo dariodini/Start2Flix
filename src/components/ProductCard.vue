@@ -2,14 +2,16 @@
   <div class="product-card">
     <div class="product-card__image-container" @click="openModal">
       <img
-        :src="`https://image.tmdb.org/t/p/original` + product.poster_path"
-        :alt="`Poster of '` + product.title + `'`"
-        class="product-card__image"
+        :src="`https://image.tmdb.org/t/p/w780${product.poster_path}`"
+        :alt="`Poster of '${product.title}'`"
+        class="product-card__image d-block w-100"
       />
     </div>
 
     <div class="product-card__details">
-      <div class="product-card__title">{{ product.title }}</div>
+      <div class="product-card__title">
+        {{ title }}
+      </div>
       <div class="product-card__actions">
         <div class="button-group">
           <button class="product-card__button play-button">
@@ -30,9 +32,18 @@
 <script>
 export default {
   props: ['product'],
+  computed: {
+    title() {
+      if (this.props.product.media_type == 'movie') {
+        return this.props.product.title
+      } else {
+        return this.props.product.name
+      }
+    }
+  },
   methods: {
     openModal() {
-      this.$emit('open-modal', this.product)
+      this.emitter.emit('open-modal', this.product)
     }
   }
 }
@@ -79,6 +90,10 @@ export default {
     padding: 14px;
     background-color: #141414;
     transition: 0.3s all ease-in-out;
+
+    @media screen and (max-width: 576px) {
+      display: none;
+    }
   }
   &__title {
     color: white;
