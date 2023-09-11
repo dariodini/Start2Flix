@@ -34,10 +34,10 @@ export default {
   props: ['product'],
   computed: {
     title() {
-      if (this.props.product.media_type == 'movie') {
-        return this.props.product.title
+      if (this.product.media_type == 'movie') {
+        return this.product.title
       } else {
-        return this.props.product.name
+        return this.product.name
       }
     }
   },
