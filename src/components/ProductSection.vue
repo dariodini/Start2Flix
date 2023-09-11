@@ -1,6 +1,6 @@
 <template>
   <div class="products-container" v-if="!isProductsLoading">
-    <div class="section" v-if="products.results.length > 0">
+    <div class="section" v-if="exists">
       <div class="section__title">
         <span>{{ title }}</span>
       </div>
@@ -8,7 +8,7 @@
         <button class="carousel-button prev-button" @click="scrollLeft">
           <img src="../assets/left-arrow.svg" alt="" class="carousel-button-icon" />
         </button>
-        <div class="row" ref="row">
+        <div class="row" :ref="computedRefName">
           <div
             v-for="product in products.results"
             :key="product.id"
@@ -34,12 +34,20 @@ export default {
   components: {
     ProductCard,
   },
+  computed: {
+    exists (){
+      return this.products.results?.length > 0
+    },
+    computedRefName() {
+      return this.title + '-row';
+    },
+  },
   methods: {
     scrollLeft() {
-      this.$refs.row.scrollLeft -= 200;
+      this.$refs[this.computedRefName].scrollLeft -= 200;
     },
     scrollRight() {
-      this.$refs.row.scrollLeft += 200;
+      this.$refs[this.computedRefName].scrollLeft += 200;
     },
   },
 };
