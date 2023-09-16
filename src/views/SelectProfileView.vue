@@ -18,9 +18,9 @@ export default {
     return {
       // Per il momento sono statici
       profiles: [
-        { img: 'src/assets/avatar1.svg', name: 'Alessio' },
-        { img: 'src/assets/avatar2.svg', name: 'Francesco' },
-        { img: 'src/assets/avatar3.svg', name: 'Vincenzo' }
+        { img: 'src/assets/avatar1.jpeg', name: 'Alessio' },
+        { img: 'src/assets/avatar2.jpeg', name: 'Francesco' },
+        { img: 'src/assets/avatar3.jpeg', name: 'Vincenzo' }
       ]
     }
   }
