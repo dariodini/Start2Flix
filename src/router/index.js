@@ -5,6 +5,7 @@ import LoginView from '../views/LoginView.vue'
 import LandingView from '../views/LandingView.vue'
 import SelectProfileView from '../views/SelectProfileView.vue'
 import BrowseCatalogueView from '../views/BrowseCatalogueView.vue'
+import BrowseMyListView from '../views/BrowseMyListView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -41,6 +42,10 @@ const router = createRouter({
       path: '/browse',
       component: BrowseCatalogueView
     },
+    {
+      path: '/browse/my-list',
+      component: BrowseMyListView
+    }
   ]
 })
 
