@@ -4,7 +4,7 @@
       <div class="section__title">
         <span>{{ title }}</span>
       </div>
-      <div class="row-slider">
+      <div class="row-slider" v-if="!notCarousel">
         <button class="carousel-button prev-button" @click="scrollLeft">
           <img src="../assets/left-arrow.svg" alt="" class="carousel-button-icon" />
         </button>
@@ -21,6 +21,17 @@
           <img src="../assets/right-arrow.svg" alt="" class="carousel-button-icon" />
         </button>
       </div>
+      <div v-else>
+        <div class="row">
+          <div
+            v-for="product in products.results"
+            :key="product.id"
+            class="product col-xl-2 col-lg-3 col-md-4 col-sm-6 col-4"
+          >
+            <product-card :product="product"></product-card>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div v-else>Caricamento in corso...</div>
@@ -30,7 +41,7 @@
 import ProductCard from './productcard.vue'
 
 export default {
-  props: ['isProductsLoading', 'products', 'title'],
+  props: ['isProductsLoading', 'products', 'title', 'notCarousel'],
   components: {
     ProductCard
   },
@@ -57,29 +68,30 @@ export default {
 .section {
   .row-slider {
     position: relative;
-  }
 
-  .row {
-    padding: 1rem;
-    flex-wrap: nowrap;
-    overflow: auto;
-    scroll-snap-type: x mandatory;
+    .row {
+      padding: 1rem;
+      flex-wrap: nowrap;
+      overflow: auto;
+      scroll-snap-type: x mandatory;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
 
-    .product {
-      scroll-snap-align: start;
-      transition: box-shadow 0.3s ease-in-out;
+      .product {
+        scroll-snap-align: start;
+        transition: box-shadow 0.3s ease-in-out;
 
-      &:hover {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        &:hover {
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
       }
     }
   }
+
   .carousel-button {
     position: absolute;
     top: 35%;
