@@ -27,30 +27,30 @@
 </template>
 
 <script>
-import ProductCard from "./productcard.vue";
+import ProductCard from './productcard.vue'
 
 export default {
-  props: ["isProductsLoading", "products", "title"],
+  props: ['isProductsLoading', 'products', 'title'],
   components: {
-    ProductCard,
+    ProductCard
   },
   computed: {
-    exists (){
+    exists() {
       return this.products.results?.length > 0
     },
     computedRefName() {
-      return this.title + '-row';
-    },
+      return this.title + '-row'
+    }
   },
   methods: {
     scrollLeft() {
-      this.$refs[this.computedRefName].scrollLeft -= 200;
+      this.$refs[this.computedRefName].scrollLeft -= 200
     },
     scrollRight() {
-      this.$refs[this.computedRefName].scrollLeft += 200;
-    },
-  },
-};
+      this.$refs[this.computedRefName].scrollLeft += 200
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -83,7 +83,7 @@ export default {
   .carousel-button {
     position: absolute;
     top: 35%;
-    z-index: 30;
+    z-index: 0;
 
     display: flex;
     align-items: center;

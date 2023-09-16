@@ -15,7 +15,7 @@
             :alt="`Poster of '` + product.title + `'`"
           />
           <div class="product-detail-modal__title-action">
-            <span class="product-detail-modal__title">{{ product.title }}</span>
+            <span class="product-detail-modal__title">{{ title }}</span>
             <div class="button-group">
               <button class="button play-button">
                 <img src="../assets/play-button.svg" alt="" />
@@ -34,7 +34,7 @@
           </product-detail-meta>
           <product-detail-meta>
             <template v-slot:name>Data d'uscita</template>
-            {{ product.release_date }}
+            {{ release_date }}
           </product-detail-meta>
           <product-detail-meta>
             <template v-slot:name>Valutazione</template>
@@ -61,7 +61,21 @@ export default {
     this.$store.dispatch('fetchMovieDetails', this.product.id)
   },
   computed: {
-    ...mapGetters(['movieDetails', 'isMovieDetailsLoading'])
+    ...mapGetters(['movieDetails', 'isMovieDetailsLoading']),
+    title() {
+      if (this.product.media_type == 'movie') {
+        return this.product.title
+      } else {
+        return this.product.name
+      }
+    },
+    release_date() {
+      if (this.product.media_type == 'movie') {
+        return this.product.release_date
+      } else {
+        return this.product.first_air_date
+      }
+    }
   },
   methods: {
     closeModal() {
@@ -76,6 +90,7 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   display: flex;
@@ -102,6 +117,7 @@ export default {
     color: white;
     position: relative;
     border-radius: 4px;
+    box-shadow: rgba(0, 0, 0) 0px 7px 29px 0px;
 
     @media screen and (max-width: 577px) {
       width: 95%;
@@ -156,7 +172,6 @@ export default {
   &__title {
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 700;
-    width: 70%;
 
     @media screen and (max-width: 768px) {
       width: 85%;
@@ -176,6 +191,8 @@ export default {
     bottom: 5%;
     left: 5%;
     z-index: 10;
+
+    width: 45%;
   }
 
   &__meta {
