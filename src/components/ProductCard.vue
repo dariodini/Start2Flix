@@ -3,7 +3,7 @@
     <div class="product-card__image-container" @click="openModal">
       <img
         :src="`https://image.tmdb.org/t/p/w780${product.poster_path}`"
-        :alt="`Poster of '${product.title}'`"
+        :alt="`Poster of '${title}'`"
         class="product-card__image d-block w-100"
       />
     </div>

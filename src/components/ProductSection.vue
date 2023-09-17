@@ -33,6 +33,9 @@
         </div>
       </div>
     </div>
+    <div v-else>
+      <div class="alert alert-primary">Non ci sono titoli che corrispondono alla tua ricerca</div>
+    </div>
   </div>
   <div v-else>Caricamento in corso...</div>
 </template>
