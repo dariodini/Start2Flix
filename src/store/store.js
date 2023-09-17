@@ -75,7 +75,11 @@ const store = createStore({
       };
       try {
         const response = await axios.request(options);
-        commit('SET_MOVIES', response.data);
+        const filteredData = {
+          ...response.data,
+          results: response.data.results.filter((data) => data.poster_path && data.backdrop_path),
+        };
+        commit('SET_MOVIES', filteredData);
       } catch (error) {
         console.error(error);
       } finally {
@@ -111,7 +115,11 @@ const store = createStore({
       };
       try {
         const response = await axios.request(options);
-        commit('SET_SERIES', response.data);
+        const filteredData = {
+          ...response.data,
+          results: response.data.results.filter((data) => data.poster_path && data.backdrop_path),
+        };
+        commit('SET_SERIES', filteredData);
       } catch (error) {
         console.error(error);
       } finally {
