@@ -13,6 +13,8 @@ const store = createStore({
     ismovieDetailsLoading: false,
     series: [],
     isSeriesLoading: false,
+    filteredProducts: [],
+    isFilteredProductsLoading: false,
   },
   getters: {
     getEmail(state) {
@@ -36,6 +38,12 @@ const store = createStore({
     isSeriesLoading(state){
       return state.isSeriesLoading
     },
+    filteredProducts(state){
+      return state.filteredProducts
+    },
+    isFilteredProductsLoading(state){
+      return state.isFilteredProductsLoading
+    },
   },
   mutations: {
     SET_EMAIL(state, email) {
@@ -58,6 +66,12 @@ const store = createStore({
     },
     SET_SERIES_LOADING(state, isSeriesLoading){
       state.isSeriesLoading = isSeriesLoading
+    },
+    SET_FILTEREDPRODUCTS(state, products){
+      state.filteredProducts = products
+    },
+    SET_FILTEREDPRODUCTS_LOADING(state, isFilteredProductsLoading){
+      state.isFilteredProductsLoading = isFilteredProductsLoading
     },
   },
   actions: {
@@ -124,6 +138,28 @@ const store = createStore({
         console.error(error);
       } finally {
         commit('SET_SERIES_LOADING', false);
+      }
+    },
+    async filterProducts({commit}, terms){
+      commit('SET_FILTEREDPRODUCTS_LOADING', true);
+      const options = {
+        method: 'GET',
+        url: `https://api.themoviedb.org/3/search/multi?query=${terms}&language=it-IT&${API_KEY}`,
+        headers: {
+          accept: 'application/json',
+        }
+      };
+      try {
+        const response = await axios.request(options);
+        const filteredData = {
+          ...response.data,
+          results: response.data.results.filter((data) => data.poster_path && data.backdrop_path),
+        };
+        commit('SET_FILTEREDPRODUCTS', filteredData);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        commit('SET_FILTEREDPRODUCTS_LOADING', false);
       }
     },
   },
