@@ -41,12 +41,12 @@ class Utente
     return App::get('database')->delete('utente', ['id' => $utenteId]);
   }
 
-  public static function exists($utenteId)
+  public static function exists($identifier)
   {
     $utenti = self::selectAll();
 
     foreach ($utenti as $utente) {
-      if ($utente->id == $utenteId) {
+      if (($utente->id == $identifier) || ($utente->email == $identifier)) {
         return true;
       }
     }
