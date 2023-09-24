@@ -9,25 +9,29 @@ class ApiUtenteController
 {
   public static function addNewUtente()
   {
-    $nome = $_REQUEST['nome'];
-    $cognome = $_REQUEST['cognome'];
-    $sesso = $_REQUEST['sesso'];
-    $telefono = $_REQUEST['telefono'];
-    $email = $_REQUEST['email'];
-    $password = $_REQUEST['password'];
+    $nome = $_POST['nome'];
+    $cognome = $_POST['cognome'];
+    $sesso = $_POST['sesso'];
+    $telefono = $_POST['telefono'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    if (
-      !empty($nome) &&
-      !empty($cognome) &&
-      !empty($sesso) &&
-      !empty($telefono) &&
-      !empty($email) &&
-      !empty($password)
-    ) {
-      Utente::create($nome, $cognome, $sesso, $telefono, $email, $password);
-      Response::json("{$nome} {$cognome} creato con successo", 201);
+    if (!Utente::exists($email)) {
+      if (
+        !empty($nome) &&
+        !empty($cognome) &&
+        !empty($sesso) &&
+        !empty($telefono) &&
+        !empty($email) &&
+        !empty($password)
+      ) {
+        Utente::create($nome, $cognome, $sesso, $telefono, $email, $password);
+        Response::json("{$nome} {$cognome} creato con successo", 201);
+      } else {
+        Response::json("Inserisci tutti i campi necessari", 400);
+      }
     } else {
-      Response::json("Inserisci tutti i campi necessari", 400);
+      Response::json("Email inserita gia in uso", 409);
     }
   }
 
