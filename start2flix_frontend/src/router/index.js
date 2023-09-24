@@ -14,6 +14,7 @@ const router = createRouter({
     {
       path: '/',
       component: LandingView,
+      name: 'landing',
       meta: {
         showLoginButton: true
       }
@@ -21,10 +22,12 @@ const router = createRouter({
     {
       path: '/login',
       component: LoginView,
+      name: 'login',
     },
     {
       path: '/signup',
       component: SignupView,
+      name: 'signup',
       meta: {
         showLoginButton: true
       }
@@ -32,10 +35,12 @@ const router = createRouter({
     {
       path: '/create-profile',
       component: CreateProfileView,
+      name: 'create-profile',
     },
     {
       path: '/select-profile',
       component: SelectProfileView,
+      name: 'select-profile',
       meta: {
         hideHeader: true
       }
@@ -47,7 +52,8 @@ const router = createRouter({
     },
     {
       path: '/browse/my-list',
-      component: BrowseMyListView
+      component: BrowseMyListView,
+      name: 'my-list',
     }
   ]
 })
