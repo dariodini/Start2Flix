@@ -73,7 +73,7 @@ class ApiUtenteController
 
   public function deleteUtente()
   {
-    $id = $_REQUEST['id'];
+    $id = $_REQUEST['id'] ?? null;
 
     if (Utente::exists($id)) {
       Utente::delete($id);
@@ -85,7 +85,7 @@ class ApiUtenteController
 
   public function getProfiles()
   {
-    $id = $_REQUEST['id'];
+    $id = $_REQUEST['id'] ?? null;
 
     if (Utente::exists($id)) {
       $profiles = Utente::selectAllProfile($id);

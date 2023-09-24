@@ -47,7 +47,7 @@ class ApiProfiloController
 
   public function deleteProfile()
   {
-    $id = $_REQUEST['id'];
+    $id = $_REQUEST['id'] ?? null;
 
     if (Profilo::exists($id)) {
       Profilo::delete($id);
@@ -59,8 +59,7 @@ class ApiProfiloController
 
   public function getProducts()
   {
-    $id = $_REQUEST['id'];
-
+    $id = $_REQUEST['id'] ?? null;
     if (Profilo::exists($id)) {
       $products = Profilo::selectAllProducts($id);
       Response::json($products, 200);

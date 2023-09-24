@@ -23,12 +23,12 @@ class ApiProfiloProdottoController
     }
   }
 
-  public function deleteProduct()
+  public function deleteProductToProfileList()
   {
     $profiloId = $_REQUEST['profiloId'];
     $prodottoId = $_REQUEST['prodottoId'];
 
-    ProfiloProdotto::delete($profiloId, $prodottoId);
+    ProfiloProdotto::delete($prodottoId, $profiloId);
     Response::json("Prodotto con ID: {$prodottoId} eliminato dalla lista", 200);
   }
 }

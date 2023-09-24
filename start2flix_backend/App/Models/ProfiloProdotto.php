@@ -19,7 +19,7 @@ class ProfiloProdotto
     ]);
   }
 
-  public static function delete($profiloId, $prodottoId)
+  public static function delete($prodottoId, $profiloId)
   {
     return App::get('database')->deleteWhere('profiloProdotto', ['fkdProfiloId' => $profiloId, 'fkProdottoId' => $prodottoId]);
   }

@@ -63,6 +63,6 @@ class Utente
   public static function selectAllProfile($idUtente)
   {
     $conditions = ['fkUtenteId' => $idUtente];
-    return App::get('database')->selectWhere('utente', $conditions);
+    return App::get('database')->selectWhere('profilo', $conditions);
   }
 }

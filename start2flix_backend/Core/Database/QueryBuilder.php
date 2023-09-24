@@ -61,7 +61,7 @@ class QueryBuilder
       unset($parameters['id']);
 
       foreach ($parameters as $key => $value) {
-        $statement->bindValue(':' . $key, $value);
+        $statement->bindValue($key, $value);
       }
 
       $statement->execute();
@@ -112,7 +112,7 @@ class QueryBuilder
       $statement = $this->pdo->prepare($sql);
 
       foreach ($conditions as $column => $value) {
-        $statement->bindValue(":$column", $value);
+        $statement->bindValue($column, $value);
       }
 
       $statement->execute();
@@ -138,7 +138,7 @@ class QueryBuilder
       $statement = $this->pdo->prepare($sql);
 
       foreach ($conditions as $column => $value) {
-        $statement->bindValue(":$column", $value);
+        $statement->bindValue($column, $value);
       }
 
       $statement->execute();
