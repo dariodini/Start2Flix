@@ -70,9 +70,9 @@
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <nuxt-link class="dropdown-item justify-content-center" type="button" to="/">
+              <router-link class="dropdown-item justify-content-center" type="button" to="/">
                 Logout
-              </nuxt-link>
+              </router-link>
             </li>
           </ul>
         </div>
