@@ -4,35 +4,116 @@
     <h4 class="signup__subtitle">Mancano solo alcuni passaggi!</h4>
     <h4 class="signup__subtitle">Anche noi detestiamo la burocrazia.</h4>
 
-    <form action class="signup__form">
+    <form @submit.prevent="handleSubmit" class="signup__form">
       <div class="form-element form-element--light">
-        <input v-model="email" type="email" name="email" id="email" required />
+        <input v-model="nome" type="text" name="firstName" id="firstName" required />
+        <label class="floating-label" for="firstName">Nome</label>
+      </div>
+
+      <div class="form-element form-element--light">
+        <input v-model="cognome" type="text" name="lastName" id="lastName" required />
+        <label class="floating-label" for="lastName">Cognome</label>
+      </div>
+
+      <div class="form-element form-element--light">
+        <select v-model="sesso" class="form-select">
+          <option disabled value="---">Sesso</option>
+          <option value="M">Maschio</option>
+          <option value="F">Femmina</option>
+          <option value="A">Altro</option>
+        </select>
+        <label class="floating-label" for="sesso">Sesso</label>
+      </div>
+
+      <div class="form-element form-element--light">
+        <input v-model="telefono" type="number" name="numero" id="numero" required />
+        <label class="floating-label" for="numero">Numero</label>
+      </div>
+
+      <div class="form-element form-element--light">
+        <input v-model="email" type="email" name="email" id="email" placeholder="&#160;" required />
         <label class="floating-label" for="email">Email</label>
       </div>
 
-      <div class="form-element form-element--light">
-        <input type="password" name="password1" id="password1" required />
+      <div
+        :class="[
+          'form-element',
+          'form-element--light',
+          {
+            'form-element--error': submitPasswordEror
+          }
+        ]"
+      >
+        <input v-model="password" type="password" name="password1" id="password1" required />
         <label class="floating-label" for="password1">Password</label>
       </div>
 
-      <div class="form-element form-element--light">
-        <input type="password" name="password2" id="password2" required />
-        <label class="floating-label" for="password2">Ripeti password</label>
+      <div
+        :class="[
+          'form-element',
+          'form-element--light',
+          {
+            'form-element--error': submitPasswordEror
+          }
+        ]"
+      >
+        <input
+          v-model="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          required
+        />
+        <label class="floating-label" for="confirmPassword">Ripeti password</label>
       </div>
-
+      <p v-if="submitPasswordEror" class="form-element__error">
+        Le password non coincidono, riprova!
+      </p>
       <button class="btn btn-sm btn-primary signup__button">Registrati</button>
     </form>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
-  computed: {
-    ...mapGetters(['getEmail']),
-    email() {
-      return this.getEmail
+  data() {
+    return {
+      nome: '',
+      cognome: '',
+      sesso: '---',
+      telefono: null,
+      email: this.$store.getters.getEmail,
+      password: '',
+      confirmPassword: '',
+      isPasswordEqual: false,
+      submitPasswordEror: false
+    }
+  },
+  methods: {
+    handleSubmit() {
+      this.validatePassword()
+      if (this.isPasswordEqual) {
+        this.submitPasswordEror = false
+
+        const formData = new FormData()
+        formData.append('nome', this.nome)
+        formData.append('cognome', this.cognome)
+        formData.append('sesso', this.sesso)
+        formData.append('telefono', this.telefono)
+        formData.append('email', this.email)
+        formData.append('password', this.password)
+
+        this.$store.dispatch('registerUser', formData)
+
+        this.$route.push({ name: 'login' })
+      } else {
+        this.submitPasswordEror = true
+      }
+    },
+    validatePassword() {
+      if (this.password === this.confirmPassword) {
+        this.isPasswordEqual = true
+      }
     }
   }
 }
