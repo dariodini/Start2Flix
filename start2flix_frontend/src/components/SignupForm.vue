@@ -105,7 +105,7 @@ export default {
 
         this.$store.dispatch('registerUser', formData)
 
-        this.$route.push({ name: 'login' })
+        this.$router.push({ name: 'login' })
       } else {
         this.submitPasswordEror = true
       }
