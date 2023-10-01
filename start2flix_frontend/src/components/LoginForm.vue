@@ -40,7 +40,7 @@ export default {
 
       this.$store.dispatch('loginUser', formData)
 
-      if (this.$store.getters.getUser) {
+      if (this.$store.getters.user) {
         this.invalidCredentails = false
         this.$router.push('/select-profile')
       } else {

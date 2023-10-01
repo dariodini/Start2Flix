@@ -21,7 +21,7 @@ const store = createStore({
     getEmail(state) {
       return state.email;
     },
-    getUser(state) {
+    user(state) {
       return state.user
     },
     movies(state) {

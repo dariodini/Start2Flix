@@ -40,7 +40,7 @@ export default {
     }
   },
   beforeMount() {
-    this.utenteId = this.$store.getters.getUser
+    this.utenteId = this.$store.getters.user
   },
   computed: {
     isValid() {
