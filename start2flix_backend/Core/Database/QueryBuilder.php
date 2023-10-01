@@ -147,4 +147,13 @@ class QueryBuilder
       return [];
     }
   }
+
+  public function login($email, $password)
+  {
+    $user = $this->selectWhere('utente', ['email' => $email]);
+    if (!empty($user) && password_verify($password, $user[0]->password)) {
+      return $user[0];
+    }
+    return null;
+  }
 }

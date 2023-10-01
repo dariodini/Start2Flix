@@ -98,4 +98,21 @@ class ApiUtenteController
       Response::json("Utente con ID: {$id} non trovato", 404);
     }
   }
+
+  public function loginUtente()
+  {
+    $email = $_REQUEST['email'] ?? null;
+    $password = $_REQUEST['password'] ?? null;
+
+    if ($email !== null && $password !== null) {
+      $utente = Utente::login($email, $password);
+      if ($utente !== null) {
+        session_start();
+        $_SESSION['user'] = $utente;
+        Response::json($utente, 200);
+      }
+      Response::json("Email o password sono errati, riprovare", 401);
+    }
+    Response::json("Inserisci email e password validi", 400);
+  }
 }

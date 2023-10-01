@@ -65,4 +65,9 @@ class Utente
     $conditions = ['fkUtenteId' => $idUtente];
     return App::get('database')->selectWhere('profilo', $conditions);
   }
+
+  public static function login($email, $password)
+  {
+    return App::get('database')->login($email, $password);
+  }
 }
