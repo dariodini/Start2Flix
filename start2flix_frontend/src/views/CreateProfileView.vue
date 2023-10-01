@@ -1,9 +1,9 @@
 <template>
   <div class="create-profile">
     <div class="create-profile__header">
-      <h1 class="create-profile__title">Add a profile</h1>
+      <h1 class="create-profile__title">Aggiungi un profilo</h1>
       <div class="create-profile__description">
-        Add a profile for a person who will watch Start2Flix
+        Aggiungi un profilo per una persona che guardeà Start2Flix
       </div>
     </div>
     <div class="create-profile__body">
@@ -12,7 +12,7 @@
       </div>
       <form class="create-profile__form" ref="form" @submit.prevent>
         <div class="form-element">
-          <input v-model="inputValue" type="text" name="name" id="name" required />
+          <input v-model="name" type="text" name="name" id="name" required />
           <label class="floating-label" for="name">Name</label>
         </div>
       </form>
@@ -23,9 +23,9 @@
         :class="['btn', isValid ? 'btn-primary' : 'btn-light']"
         @click="submitForm"
       >
-        Create
+        Crea
       </button>
-      <button class="btn btn-outline-secondary" @click.prevent="previousPage">Cancel</button>
+      <button class="btn btn-outline-secondary" @click.prevent="backHome">Annulla</button>
     </div>
   </div>
 </template>
@@ -34,21 +34,32 @@
 export default {
   data() {
     return {
-      inputValue: ''
+      utenteId: null,
+      name: '',
+      image: 1
     }
+  },
+  beforeMount() {
+    this.utenteId = this.$store.getters.getUser
   },
   computed: {
     isValid() {
-      return this.inputValue.trim() !== ''
+      return this.name.trim() !== ''
     }
   },
   methods: {
     submitForm() {
-      this.$refs.form.submit()
+      const formData = new FormData()
+      formData.append('utenteId', this.utenteId)
+      formData.append('nome', this.name)
+      formData.append('image', this.image)
+
+      this.$store.dispatch('addProfile', formData)
+
+      this.$router.push({ name: 'homepage' })
     },
-    previousPage() {
-      if (this.$router.back()) return this.$router.back()
-      else return this.$router.push({ name: 'homepage' })
+    backHome() {
+      this.$router.push({ name: 'homepage' })
     }
   }
 }

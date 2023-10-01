@@ -105,6 +105,15 @@ const store = createStore({
           console.log(error)
         })
     },
+    async addProfile({commit}, userData){
+      axios.post('http://127.0.0.1:8000/api/utente/profilo', userData)
+      .then(function(response){
+        console.log(response);
+      })
+      .catch(function(error){
+        console.log(error);
+      })
+    },
     async fetchMovies({ commit }) {
       commit('SET_MOVIES_LOADING', true);
       const options = {
