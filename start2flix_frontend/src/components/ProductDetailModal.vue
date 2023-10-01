@@ -172,6 +172,7 @@ export default {
   &__title {
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 700;
+    text-shadow: 0px 0px 30px black;
 
     @media screen and (max-width: 768px) {
       width: 85%;
