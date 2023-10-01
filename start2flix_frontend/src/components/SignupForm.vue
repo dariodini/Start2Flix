@@ -75,6 +75,8 @@
 </template>
 
 <script>
+import bcrypt from 'bcryptjs'
+
 export default {
   data() {
     return {
@@ -90,22 +92,28 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
       this.validatePassword()
       if (this.isPasswordEqual) {
         this.submitPasswordEror = false
 
-        const formData = new FormData()
-        formData.append('nome', this.nome)
-        formData.append('cognome', this.cognome)
-        formData.append('sesso', this.sesso)
-        formData.append('telefono', this.telefono)
-        formData.append('email', this.email)
-        formData.append('password', this.password)
+        try {
+          const hashedPassword = await this.hashPassword(this.password)
 
-        this.$store.dispatch('registerUser', formData)
+          const formData = new FormData()
+          formData.append('nome', this.nome)
+          formData.append('cognome', this.cognome)
+          formData.append('sesso', this.sesso)
+          formData.append('telefono', this.telefono)
+          formData.append('email', this.email)
+          formData.append('password', hashedPassword)
 
-        this.$router.push({ name: 'login' })
+          this.$store.dispatch('registerUser', formData)
+
+          this.$router.push({ name: 'login' })
+        } catch (error) {
+          console.log(error)
+        }
       } else {
         this.submitPasswordEror = true
       }
@@ -114,6 +122,9 @@ export default {
       if (this.password === this.confirmPassword) {
         this.isPasswordEqual = true
       }
+    },
+    async hashPassword(password) {
+      return await bcrypt.hash(password, 10)
     }
   }
 }
