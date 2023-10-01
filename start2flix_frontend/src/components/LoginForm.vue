@@ -2,15 +2,18 @@
   <div class="login-form-container">
     <h1 class="login-page-title">Accedi</h1>
 
-    <form class="login-form" @submit.prevent="selectProfile">
+    <form class="login-form" method="post" @submit.prevent="handleSubmit">
       <div class="form-element">
-        <input type="text" name="username" id="username" placeholder="" required />
-        <label class="floating-label" for="username">Email o Numero di telefono</label>
+        <input v-model="email" type="email" name="username" id="username" placeholder="" required />
+        <label class="floating-label" for="username">Email</label>
       </div>
       <div class="form-element">
-        <input type="password" name="password" id="password" required />
+        <input v-model="password" type="password" name="password" id="password" required />
         <label class="floating-label" for="password">Password</label>
       </div>
+      <p v-if="invalidCredentails" class="form-element__error">
+        Email o passowrd non validi, riprova!
+      </p>
       <button class="btn btn-sm btn-primary login-button">Accedi</button>
     </form>
 
@@ -22,9 +25,27 @@
 
 <script>
 export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      invalidCredentails: false
+    }
+  },
   methods: {
-    selectProfile() {
-      this.$router.push('/select-profile')
+    handleSubmit() {
+      const formData = new FormData()
+      formData.append('email', this.email)
+      formData.append('password', this.password)
+
+      this.$store.dispatch('loginUser', formData)
+
+      if (this.$store.getters.getUser) {
+        this.invalidCredentails = false
+        this.$router.push('/select-profile')
+      } else {
+        this.invalidCredentails = true
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ const API_KEY = import.meta.env.VITE_APP_API_KEY;
 const store = createStore({
   state: {
     email: null,
+    user: null,
     movies: [],
     isMoviesLoading: false,
     movieDetails: [],
@@ -20,28 +21,31 @@ const store = createStore({
     getEmail(state) {
       return state.email;
     },
-    movies(state){
+    getUser(state) {
+      return state.user
+    },
+    movies(state) {
       return state.movies
     },
-    isMoviesLoading(state){
+    isMoviesLoading(state) {
       return state.isMoviesLoading
     },
-    movieDetails(state){
+    movieDetails(state) {
       return state.movieDetails
     },
-    isMovieDetailsLoading(state){
+    isMovieDetailsLoading(state) {
       return state.ismovieDetailsLoading
     },
-    series(state){
+    series(state) {
       return state.series
     },
-    isSeriesLoading(state){
+    isSeriesLoading(state) {
       return state.isSeriesLoading
     },
-    filteredProducts(state){
+    filteredProducts(state) {
       return state.filteredProducts
     },
-    isFilteredProductsLoading(state){
+    isFilteredProductsLoading(state) {
       return state.isFilteredProductsLoading
     },
   },
@@ -49,28 +53,31 @@ const store = createStore({
     SET_EMAIL(state, email) {
       state.email = email;
     },
-    SET_MOVIES(state, movies){
+    SET_USER(state, user) {
+      state.user = user
+    },
+    SET_MOVIES(state, movies) {
       state.movies = movies
     },
-    SET_MOVIES_LOADING(state, isMoviesLoading){
+    SET_MOVIES_LOADING(state, isMoviesLoading) {
       state.isMoviesLoading = isMoviesLoading
     },
-    SET_MOVIE_DETAILS(state, movieDetails){
+    SET_MOVIE_DETAILS(state, movieDetails) {
       state.movieDetails = movieDetails
     },
-    SET_MOVIE_DETAILS_LOADING(state, isMovieDetailsLoading){
+    SET_MOVIE_DETAILS_LOADING(state, isMovieDetailsLoading) {
       state.ismovieDetailsLoading = isMovieDetailsLoading
     },
-    SET_SERIES(state, series){
+    SET_SERIES(state, series) {
       state.series = series
     },
-    SET_SERIES_LOADING(state, isSeriesLoading){
+    SET_SERIES_LOADING(state, isSeriesLoading) {
       state.isSeriesLoading = isSeriesLoading
     },
-    SET_FILTEREDPRODUCTS(state, products){
+    SET_FILTEREDPRODUCTS(state, products) {
       state.filteredProducts = products
     },
-    SET_FILTEREDPRODUCTS_LOADING(state, isFilteredProductsLoading){
+    SET_FILTEREDPRODUCTS_LOADING(state, isFilteredProductsLoading) {
       state.isFilteredProductsLoading = isFilteredProductsLoading
     },
   },
@@ -78,16 +85,27 @@ const store = createStore({
     updateEmail({ commit }, email) {
       commit('SET_EMAIL', email);
     },
-    async registerUser({commit}, userData){
+    async registerUser({ commit }, userData) {
       axios.post('http://127.0.0.1:8000/api/utente', userData)
-        .then(function (response){
+        .then(function (response) {
           console.log(response)
         })
-        .catch(function (error){
+        .catch(function (error) {
           console.log(error)
         })
     },
-    async fetchMovies({commit}){
+    async loginUser({ commit }, userData) {
+      axios.post('http://127.0.0.1:8000/api/utente/login', userData)
+        .then(function (response) {
+          console.log(response.data)
+          const user = response.data
+          commit('SET_USER', user.id)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
+    async fetchMovies({ commit }) {
       commit('SET_MOVIES_LOADING', true);
       const options = {
         method: 'GET',
@@ -109,7 +127,7 @@ const store = createStore({
         commit('SET_MOVIES_LOADING', false);
       }
     },
-    async fetchMovieDetails({commit}, id){
+    async fetchMovieDetails({ commit }, id) {
       commit('SET_MOVIE_DETAILS_LOADING', true);
       const options = {
         method: 'GET',
@@ -127,7 +145,7 @@ const store = createStore({
         commit('SET_MOVIE_DETAILS_LOADING', false);
       }
     },
-    async fetchSeries({commit}){
+    async fetchSeries({ commit }) {
       commit('SET_SERIES_LOADING', true);
       const options = {
         method: 'GET',
@@ -149,7 +167,7 @@ const store = createStore({
         commit('SET_SERIES_LOADING', false);
       }
     },
-    async filterProducts({commit}, terms){
+    async filterProducts({ commit }, terms) {
       commit('SET_FILTEREDPRODUCTS_LOADING', true);
       const options = {
         method: 'GET',
