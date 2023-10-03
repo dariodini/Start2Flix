@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-// import createPersistedState from "vuex-plugin-persistedstate";
+import createPersistedState from "vuex-plugin-persistedstate";
 import axios from 'axios';
 
 const API_KEY = import.meta.env.VITE_APP_API_KEY;
@@ -8,6 +8,7 @@ const store = createStore({
   state: {
     email: null,
     user: null,
+    profiles: null,
     movies: [],
     isMoviesLoading: false,
     movieDetails: [],
@@ -23,6 +24,9 @@ const store = createStore({
     },
     user(state) {
       return state.user
+    },
+    profiles(state){
+      return state.profiles
     },
     movies(state) {
       return state.movies
@@ -55,6 +59,9 @@ const store = createStore({
     },
     SET_USER(state, user) {
       state.user = user
+    },
+    SET_PROFILES(state, profiles){
+      state.profiles = profiles
     },
     SET_MOVIES(state, movies) {
       state.movies = movies
@@ -107,6 +114,15 @@ const store = createStore({
     },
     async addProfile({commit}, userData){
       axios.post('http://127.0.0.1:8000/api/utente/profilo', userData)
+      .then(function(response){
+        console.log(response);
+      })
+      .catch(function(error){
+        console.log(error);
+      })
+    },
+    async getProfiles({commit, getters}){
+      axios.post('http://127.0.0.1:8000/api/utente/profili', userData)
       .then(function(response){
         console.log(response);
       })
@@ -199,7 +215,7 @@ const store = createStore({
       }
     },
   },
-  // plugins: [createPersistedState()],
+  plugins: [createPersistedState()],
 });
 
 export default store;
