@@ -1,8 +1,8 @@
-import { createStore } from 'vuex';
-import createPersistedState from "vuex-plugin-persistedstate";
-import axios from 'axios';
+import { createStore } from 'vuex'
+// import createPersistedState from 'vuex-plugin-persistedstate'
+import axios from 'axios'
 
-const API_KEY = import.meta.env.VITE_APP_API_KEY;
+const API_KEY = import.meta.env.VITE_APP_API_KEY
 
 const store = createStore({
   state: {
@@ -16,16 +16,16 @@ const store = createStore({
     series: [],
     isSeriesLoading: false,
     filteredProducts: [],
-    isFilteredProductsLoading: false,
+    isFilteredProductsLoading: false
   },
   getters: {
     getEmail(state) {
-      return state.email;
+      return state.email
     },
     user(state) {
       return state.user
     },
-    profiles(state){
+    profiles(state) {
       return state.profiles
     },
     movies(state) {
@@ -51,16 +51,16 @@ const store = createStore({
     },
     isFilteredProductsLoading(state) {
       return state.isFilteredProductsLoading
-    },
+    }
   },
   mutations: {
     SET_EMAIL(state, email) {
-      state.email = email;
+      state.email = email
     },
     SET_USER(state, user) {
       state.user = user
     },
-    SET_PROFILES(state, profiles){
+    SET_PROFILES(state, profiles) {
       state.profiles = profiles
     },
     SET_MOVIES(state, movies) {
@@ -86,14 +86,15 @@ const store = createStore({
     },
     SET_FILTEREDPRODUCTS_LOADING(state, isFilteredProductsLoading) {
       state.isFilteredProductsLoading = isFilteredProductsLoading
-    },
+    }
   },
   actions: {
     updateEmail({ commit }, email) {
-      commit('SET_EMAIL', email);
+      commit('SET_EMAIL', email)
     },
     async registerUser({ commit }, userData) {
-      axios.post('http://127.0.0.1:8000/api/utente', userData)
+      axios
+        .post('http://127.0.0.1:8000/api/utente', userData)
         .then(function (response) {
           console.log(response)
         })
@@ -102,120 +103,126 @@ const store = createStore({
         })
     },
     async loginUser({ commit }, userData) {
-      axios.post('http://127.0.0.1:8000/api/utente/login', userData)
+      try {
+        const response = await axios.post(
+          'http://127.0.0.1:8000/api/utente/login', userData, {
+          withCredentials: true
+        });
+        const user = response.data;
+        commit('SET_USER', user.id);
+        return user;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async addProfile({ commit }, userData) {
+      axios
+        .post('http://127.0.0.1:8000/api/utente/profilo', userData)
         .then(function (response) {
-          console.log(response.data)
-          const user = response.data
-          commit('SET_USER', user.id)
+          console.log(response)
         })
         .catch(function (error) {
           console.log(error)
         })
     },
-    async addProfile({commit}, userData){
-      axios.post('http://127.0.0.1:8000/api/utente/profilo', userData)
-      .then(function(response){
-        console.log(response);
-      })
-      .catch(function(error){
-        console.log(error);
-      })
-    },
-    async getProfiles({commit, getters}){
-      axios.post('http://127.0.0.1:8000/api/utente/profili', userData)
-      .then(function(response){
-        console.log(response);
-      })
-      .catch(function(error){
-        console.log(error);
-      })
+    async getProfiles({ commit }) {
+      try {
+        const response = await axios.get(
+          'http://127.0.0.1:8000/api/utente/profili', {
+          withCredentials: true
+        })
+        commit('SET_PROFILES', response.data)
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
     },
     async fetchMovies({ commit }) {
-      commit('SET_MOVIES_LOADING', true);
+      commit('SET_MOVIES_LOADING', true)
       const options = {
         method: 'GET',
         url: `https://api.themoviedb.org/3/trending/movie/day?language=it-IT&${API_KEY}`,
         headers: {
-          accept: 'application/json',
+          accept: 'application/json'
         }
-      };
+      }
       try {
-        const response = await axios.request(options);
+        const response = await axios.request(options)
         const filteredData = {
           ...response.data,
-          results: response.data.results.filter((data) => data.poster_path && data.backdrop_path),
-        };
-        commit('SET_MOVIES', filteredData);
+          results: response.data.results.filter((data) => data.poster_path && data.backdrop_path)
+        }
+        commit('SET_MOVIES', filteredData)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       } finally {
-        commit('SET_MOVIES_LOADING', false);
+        commit('SET_MOVIES_LOADING', false)
       }
     },
     async fetchMovieDetails({ commit }, id) {
-      commit('SET_MOVIE_DETAILS_LOADING', true);
+      commit('SET_MOVIE_DETAILS_LOADING', true)
       const options = {
         method: 'GET',
         url: `https://api.themoviedb.org/3/movie/${id}?language=it-IT&${API_KEY}`,
         headers: {
-          accept: 'application/json',
+          accept: 'application/json'
         }
-      };
+      }
       try {
-        const response = await axios.request(options);
-        commit('SET_MOVIE_DETAILS', response.data);
+        const response = await axios.request(options)
+        commit('SET_MOVIE_DETAILS', response.data)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       } finally {
-        commit('SET_MOVIE_DETAILS_LOADING', false);
+        commit('SET_MOVIE_DETAILS_LOADING', false)
       }
     },
     async fetchSeries({ commit }) {
-      commit('SET_SERIES_LOADING', true);
+      commit('SET_SERIES_LOADING', true)
       const options = {
         method: 'GET',
         url: `https://api.themoviedb.org/3/trending/tv/day?language=it-IT&${API_KEY}`,
         headers: {
-          accept: 'application/json',
+          accept: 'application/json'
         }
-      };
+      }
       try {
-        const response = await axios.request(options);
+        const response = await axios.request(options)
         const filteredData = {
           ...response.data,
-          results: response.data.results.filter((data) => data.poster_path && data.backdrop_path),
-        };
-        commit('SET_SERIES', filteredData);
+          results: response.data.results.filter((data) => data.poster_path && data.backdrop_path)
+        }
+        commit('SET_SERIES', filteredData)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       } finally {
-        commit('SET_SERIES_LOADING', false);
+        commit('SET_SERIES_LOADING', false)
       }
     },
     async filterProducts({ commit }, terms) {
-      commit('SET_FILTEREDPRODUCTS_LOADING', true);
+      commit('SET_FILTEREDPRODUCTS_LOADING', true)
       const options = {
         method: 'GET',
         url: `https://api.themoviedb.org/3/search/multi?query=${terms}&language=it-IT&${API_KEY}`,
         headers: {
-          accept: 'application/json',
+          accept: 'application/json'
         }
-      };
+      }
       try {
-        const response = await axios.request(options);
+        const response = await axios.request(options)
         const filteredData = {
           ...response.data,
-          results: response.data.results.filter((data) => data.poster_path && data.backdrop_path),
-        };
-        commit('SET_FILTEREDPRODUCTS', filteredData);
+          results: response.data.results.filter((data) => data.poster_path && data.backdrop_path)
+        }
+        commit('SET_FILTEREDPRODUCTS', filteredData)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       } finally {
-        commit('SET_FILTEREDPRODUCTS_LOADING', false);
+        commit('SET_FILTEREDPRODUCTS_LOADING', false)
       }
-    },
+    }
   },
-  plugins: [createPersistedState()],
-});
+  // plugins: [createPersistedState()]
+})
 
-export default store;
+export default store

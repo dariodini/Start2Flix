@@ -89,13 +89,19 @@ class ApiUtenteController
 
   public function getProfiles()
   {
-    $id = $_REQUEST['id'] ?? null;
+    session_start();
 
-    if (Utente::exists($id)) {
-      $profiles = Utente::selectAllProfile($id);
-      Response::json($profiles, 200);
+    if ((isset($_SESSION['user']))) {
+      $id = $_SESSION['user']->id;
+
+      if (Utente::exists($id)) {
+        $profiles = Utente::selectAllProfile($id);
+        Response::json($profiles, 200);
+      } else {
+        Response::json("Utente con ID: {$id} non trovato", 404);
+      }
     } else {
-      Response::json("Utente con ID: {$id} non trovato", 404);
+      Response::json("Effettua l'accesso prima!", 401);
     }
   }
 
@@ -103,6 +109,10 @@ class ApiUtenteController
   {
     $email = $_REQUEST['email'] ?? null;
     $password = $_REQUEST['password'] ?? null;
+
+    if (isset($_SESSION['user'])) {
+      Response::json('Già sei loggato!', 200);
+    }
 
     if ($email !== null && $password !== null) {
       $utente = Utente::login($email, $password);
