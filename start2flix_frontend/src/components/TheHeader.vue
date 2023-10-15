@@ -33,29 +33,15 @@
         </form>
 
         <div class="header__dropdown">
-          <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
-            <img src="../assets/avatar1.jpeg" />
-          </button>
+          <CompactProfile
+            :profile="selectedProfile"
+            :noName="true"
+            class="btn dropdown-toggle"
+            data-bs-toggle="dropdown"
+          />
           <ul class="dropdown-menu dropdown-menu-end mt-3">
-            <li>
-              <button class="dropdown-item" type="button">
-                <img src="../assets/avatar2.jpeg" /> Francesco
-              </button>
-            </li>
-            <li>
-              <button class="dropdown-item" type="button">
-                <img src="../assets/avatar3.jpeg" /> Luca
-              </button>
-            </li>
-            <li>
-              <button class="dropdown-item" type="button">
-                <img src="../assets/avatar4.jpeg" /> Susanna
-              </button>
-            </li>
-            <li>
-              <button class="dropdown-item" type="button">
-                <img src="../assets/avatar5.jpeg" /> Ugo
-              </button>
+            <li v-for="profile in otherProfiles" :key="profile">
+              <CompactProfile :profile="profile" class="dropdown-item" />
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
@@ -82,7 +68,10 @@
 </template>
 
 <script>
+import CompactProfile from './CompactProfile.vue'
+
 export default {
+  components: { CompactProfile },
   data() {
     return {
       insertedName: ''
@@ -94,6 +83,27 @@ export default {
     },
     showLoginButton() {
       return this.$route.meta.showLoginButton
+    },
+    user() {
+      return this.$store.getters.user
+    },
+    selectedProfile() {
+      if (this.user && !this.hideHeader) {
+        return this.$store.getters.profile
+      }
+      return null
+    },
+    profiles() {
+      if (this.user && !this.hideHeader) {
+        return this.$store.getters.profiles
+      }
+      return null
+    },
+    otherProfiles() {
+      if (this.user && !this.hideHeader) {
+        return this.profiles.filter((profile) => profile.id !== this.selectedProfile.id)
+      }
+      return null
     }
   },
   methods: {
@@ -130,15 +140,6 @@ export default {
   }
 
   &__dropdown {
-    button {
-      img {
-        border-radius: 3px;
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-      }
-    }
-
     .dropdown-toggle {
       &::after {
         border-top: 0.4em solid white;
