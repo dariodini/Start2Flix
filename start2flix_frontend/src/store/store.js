@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-// import createPersistedState from 'vuex-plugin-persistedstate'
+import createPersistedState from 'vuex-plugin-persistedstate'
 import axios from 'axios'
 
 const API_KEY = import.meta.env.VITE_APP_API_KEY
@@ -144,8 +144,8 @@ const store = createStore({
         throw error;
       }
     },
-    async selectProfile({ commit }, id){
-      commit('SET_PROFILE', id);
+    async selectProfile({ commit }, profile){
+      commit('SET_PROFILE', profile);
     },
     async fetchMovies({ commit }) {
       commit('SET_MOVIES_LOADING', true)
@@ -232,7 +232,7 @@ const store = createStore({
       }
     }
   },
-  // plugins: [createPersistedState()]
+  plugins: [createPersistedState()]
 })
 
 export default store
