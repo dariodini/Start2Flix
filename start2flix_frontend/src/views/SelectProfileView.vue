@@ -29,8 +29,8 @@ export default {
     }
   },
   methods: {
-    selectProfile(id) {
-      this.$store.dispatch('selectProfile', id)
+    selectProfile(profile) {
+      this.$store.dispatch('selectProfile', profile)
     }
   },
   async beforeMount() {

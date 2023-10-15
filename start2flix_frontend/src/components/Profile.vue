@@ -1,5 +1,5 @@
 <template>
-  <router-link class="profile" @click="$emit('select-profile', profile.id)">
+  <router-link class="profile" @click="$emit('select-profile', profile)">
     <div class="profile__image-container">
       <img
         :src="getImagePath(profile.image)"
