@@ -2,7 +2,7 @@
   <router-link class="profile" @click="$emit('select-profile', profile)">
     <div class="profile__image-container">
       <img
-        :src="getImagePath(profile.image)"
+        :src="$helpers.getImagePath(profile.image)"
         :alt="`Avatar di ${profile.nome}`"
         class="profile__image"
       />
@@ -13,12 +13,7 @@
 
 <script>
 export default {
-  props: ['profile'],
-  methods: {
-    getImagePath(id) {
-      return `/avatar${id}.jpeg`
-    }
-  }
+  props: ['profile']
 }
 </script>
 
