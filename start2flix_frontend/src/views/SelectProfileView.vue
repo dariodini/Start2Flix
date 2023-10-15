@@ -2,7 +2,13 @@
   <div class="profiles">
     <h1 class="profiles__title">Chi vuole guardare StartFlix?</h1>
     <div class="profiles__list">
-      <profile v-for="profile in profiles" :key="profile" :profile="profile" to="/browse"></profile>
+      <profile
+        @select-profile="selectProfile"
+        v-for="profile in profiles"
+        :key="profile"
+        :profile="profile"
+        to="/browse"
+      ></profile>
     </div>
   </div>
 </template>
@@ -20,6 +26,11 @@ export default {
     },
     profiles() {
       return this.$store.getters.profiles
+    }
+  },
+  methods: {
+    selectProfile(id) {
+      this.$store.dispatch('selectProfile', id)
     }
   },
   async beforeMount() {

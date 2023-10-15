@@ -9,6 +9,7 @@ const store = createStore({
     email: null,
     user: null,
     profiles: null,
+    profile: null,
     movies: [],
     isMoviesLoading: false,
     movieDetails: [],
@@ -27,6 +28,9 @@ const store = createStore({
     },
     profiles(state) {
       return state.profiles
+    },
+    profile(state) {
+      return state.profile
     },
     movies(state) {
       return state.movies
@@ -62,6 +66,9 @@ const store = createStore({
     },
     SET_PROFILES(state, profiles) {
       state.profiles = profiles
+    },
+    SET_PROFILE(state, profile) {
+      state.profile = profile
     },
     SET_MOVIES(state, movies) {
       state.movies = movies
@@ -136,6 +143,9 @@ const store = createStore({
         console.error(error);
         throw error;
       }
+    },
+    async selectProfile({ commit }, id){
+      commit('SET_PROFILE', id);
     },
     async fetchMovies({ commit }) {
       commit('SET_MOVIES_LOADING', true)

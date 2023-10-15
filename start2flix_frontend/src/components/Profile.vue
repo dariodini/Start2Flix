@@ -1,9 +1,9 @@
 <template>
-  <router-link class="profile">
+  <router-link class="profile" @click="$emit('select-profile', profile.id)">
     <div class="profile__image-container">
       <img
-        :src="getImagePath(profile.id)"
-        :alt="`Avatar di ${profile.name}`"
+        :src="getImagePath(profile.image)"
+        :alt="`Avatar di ${profile.nome}`"
         class="profile__image"
       />
     </div>
