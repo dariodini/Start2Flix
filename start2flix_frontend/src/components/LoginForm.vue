@@ -33,13 +33,12 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
       const formData = new FormData()
       formData.append('email', this.email)
       formData.append('password', this.password)
 
-      this.$store.dispatch('loginUser', formData)
-
+      await this.$store.dispatch('loginUser', formData)
       if (this.$store.getters.user) {
         this.invalidCredentails = false
         this.$router.push('/select-profile')
