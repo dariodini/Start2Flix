@@ -18,5 +18,8 @@ return array(
     'App\\Entities\\ProfiloProdotto' => $baseDir . '/App/Models/ProfiloProdotto.php',
     'App\\Entities\\Utente' => $baseDir . '/App/Models/Utente.php',
     'App\\core\\Response' => $baseDir . '/Core/Response.php',
+    'ComposerAutoloaderInit6868805a5ecd8c174ca5a477d56b2628' => $vendorDir . '/composer/autoload_real.php',
+    'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
+    'Composer\\Autoload\\ComposerStaticInit6868805a5ecd8c174ca5a477d56b2628' => $vendorDir . '/composer/autoload_static.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );

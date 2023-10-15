@@ -19,6 +19,9 @@ class ComposerStaticInit6868805a5ecd8c174ca5a477d56b2628
         'App\\Entities\\ProfiloProdotto' => __DIR__ . '/../..' . '/App/Models/ProfiloProdotto.php',
         'App\\Entities\\Utente' => __DIR__ . '/../..' . '/App/Models/Utente.php',
         'App\\core\\Response' => __DIR__ . '/../..' . '/Core/Response.php',
+        'ComposerAutoloaderInit6868805a5ecd8c174ca5a477d56b2628' => __DIR__ . '/..' . '/composer/autoload_real.php',
+        'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
+        'Composer\\Autoload\\ComposerStaticInit6868805a5ecd8c174ca5a477d56b2628' => __DIR__ . '/..' . '/composer/autoload_static.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
