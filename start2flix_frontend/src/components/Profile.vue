@@ -1,15 +1,24 @@
 <template>
   <router-link class="profile">
     <div class="profile__image-container">
-      <img :src="profile.img" :alt="`Avatar ${profile.name}`" class="profile__image" />
+      <img
+        :src="getImagePath(profile.id)"
+        :alt="`Avatar di ${profile.name}`"
+        class="profile__image"
+      />
     </div>
-    <span class="profile__name">{{ profile.name }}</span>
+    <span class="profile__name">{{ profile.nome }}</span>
   </router-link>
 </template>
 
 <script>
 export default {
-  props: ['profile']
+  props: ['profile'],
+  methods: {
+    getImagePath(id) {
+      return `/avatar${id}.jpeg`
+    }
+  }
 }
 </script>
 

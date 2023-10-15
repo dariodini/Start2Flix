@@ -14,15 +14,16 @@ export default {
   components: {
     Profile
   },
-  data() {
-    return {
-      // Per il momento sono statici
-      profiles: [
-        { img: 'src/assets/avatar1.jpeg', name: 'Alessio' },
-        { img: 'src/assets/avatar2.jpeg', name: 'Francesco' },
-        { img: 'src/assets/avatar3.jpeg', name: 'Vincenzo' }
-      ]
+  computed: {
+    user() {
+      return this.$store.getters.user
+    },
+    profiles() {
+      return this.$store.getters.profiles
     }
+  },
+  async beforeMount() {
+    await this.$store.dispatch('getProfiles')
   }
 }
 </script>
@@ -46,7 +47,8 @@ export default {
     width: 75%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    column-gap: 5rem;
   }
 }
 </style>
