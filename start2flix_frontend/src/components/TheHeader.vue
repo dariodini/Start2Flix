@@ -32,8 +32,9 @@
           </div>
         </form>
 
-        <div class="header__dropdown">
+        <div v-if="user" class="header__dropdown">
           <CompactProfile
+            @change-profile="changeProfile"
             :profile="selectedProfile"
             :noName="true"
             class="btn dropdown-toggle"
@@ -41,7 +42,11 @@
           />
           <ul class="dropdown-menu dropdown-menu-end mt-3">
             <li v-for="profile in otherProfiles" :key="profile">
-              <CompactProfile :profile="profile" class="dropdown-item" />
+              <CompactProfile
+                @click="changeProfile(profile)"
+                :profile="profile"
+                class="dropdown-item"
+              />
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
@@ -109,6 +114,9 @@ export default {
   methods: {
     handleInput() {
       this.emitter.emit('filter-products', this.insertedName)
+    },
+    changeProfile(profile) {
+      this.$store.dispatch('selectProfile', profile)
     }
   }
 }
