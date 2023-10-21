@@ -48,12 +48,21 @@ const router = createRouter({
     {
       path: '/browse',
       component: BrowseCatalogueView,
-      name: 'homepage'
+      name: 'homepage',
+      meta: {
+        showForm: true,
+        showProfiles: true,
+        logoSmall: true,
+      }
     },
     {
       path: '/browse/my-list',
       component: BrowseMyListView,
       name: 'my-list',
+      meta: {
+        showProfiles: true,
+        logoSmall: true,
+      }
     }
   ]
 })

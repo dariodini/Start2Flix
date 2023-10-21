@@ -1,0 +1,11 @@
+.header-action-nav {
+  display: flex;
+  flex-direction: row;
+  column-gap: 2rem;
+
+  &__link {
+    font-size: 0.875rem;
+    text-decoration: none;
+    color: rgb(208, 208, 208);
+  }
+}
