@@ -5,7 +5,7 @@
       <profile
         @select-profile="selectProfile"
         v-for="profile in profiles"
-        :key="profile"
+        :key="profile.id"
         :profile="profile"
         to="/browse"
       ></profile>
@@ -30,7 +30,12 @@ export default {
   },
   methods: {
     selectProfile(profile) {
-      this.$store.dispatch('selectProfile', profile)
+      const formData = new FormData()
+      formData.append('profile', JSON.stringify(profile))
+      this.$store.dispatch('selectProfile', {
+        profile: profile,
+        profileFormData: formData
+      })
     }
   },
   async beforeMount() {

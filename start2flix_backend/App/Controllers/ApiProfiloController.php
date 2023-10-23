@@ -7,6 +7,21 @@ use App\core\Response;
 
 class ApiProfiloController
 {
+  public function setProfile()
+  {
+    $profile = json_decode($_REQUEST['profile'] ?? null);
+    if ($profile !== null) {
+      if (Profilo::exists($profile->id)) {
+        $_SESSION['profile'] = Profilo::selectById($profile->id);
+        Response::json('Profilo settato con successo!', 200);
+      } else {
+        Response::json("Il profilo non esiste!", 401);
+      }
+    } else {
+      Response::json("Inserisci l'ID del profilo!", 401);
+    }
+  }
+
   public function addNewProfile()
   {
     $utenteId = $_REQUEST['utenteId'];

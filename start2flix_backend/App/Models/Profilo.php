@@ -37,14 +37,17 @@ class Profilo
 
   public static function exists($profiloId)
   {
-    $profili = self::selectAll();
-
-    foreach ($profili as $profilo) {
-      if ($profilo->id == $profiloId) {
-        return true;
+    session_start();
+    if (isset($_SESSION['user'])) {
+      $idUtente = $_SESSION['user']->id;
+      $profiliUtente = Utente::selectAllProfile($idUtente);
+      foreach ($profiliUtente as $profilo) {
+        if ($profilo->id == $profiloId) {
+          return true;
+        }
       }
+      return false;
     }
-    return false;
   }
 
   public static function selectById($profiloId)

@@ -144,8 +144,17 @@ const store = createStore({
         throw error;
       }
     },
-    async selectProfile({ commit }, profile){
-      commit('SET_PROFILE', profile);
+    async selectProfile({ commit }, data){
+      commit('SET_PROFILE', data.profile);
+      try {
+        const response = await axios.post(
+          'http://127.0.0.1:8000/api/utente/profilo/set', data.profileFormData, {
+          withCredentials: true
+        });
+        return response.data;
+      } catch (error) {
+        console.error(error);
+      }
     },
     async fetchMovies({ commit }) {
       commit('SET_MOVIES_LOADING', true)

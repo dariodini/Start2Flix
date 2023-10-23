@@ -5,6 +5,7 @@ $router->post('api/utente/login', 'ApiUtenteController@loginUtente');
 $router->put('api/utente', 'ApiUtenteController@updateUtente');
 $router->delete('api/utente', 'ApiUtenteController@deleteUtente');
 $router->get('api/utente/profili', 'ApiUtenteController@getProfiles');
+$router->post('api/utente/profilo/set', 'ApiProfiloController@setProfile');
 
 
 $router->post('api/utente/profilo', 'ApiProfiloController@addNewProfile');
