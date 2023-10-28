@@ -50,7 +50,7 @@
             </form>
           </div>
 
-          <div v-if="user" class="header__dropdown">
+          <div v-if="user && selectedProfile" class="header__dropdown">
             <CompactProfile
               @change-profile="changeProfile"
               :profile="selectedProfile"
@@ -125,7 +125,7 @@ export default {
       return null
     },
     otherProfiles() {
-      if (this.user && !this.hideHeader) {
+      if (this.user && this.selectedProfile && !this.hideHeader) {
         return this.profiles.filter((profile) => profile.id !== this.selectedProfile.id)
       }
       return null
