@@ -1,5 +1,5 @@
 <template>
-  <div class="profiles">
+  <div v-if="user" class="profiles">
     <h1 class="profiles__title">Chi vuole guardare StartFlix?</h1>
     <div class="profiles__list">
       <profile
@@ -34,7 +34,9 @@ export default {
     }
   },
   async beforeMount() {
-    await this.$store.dispatch('getProfiles')
+    if (this.user) {
+      await this.$store.dispatch('getProfiles')
+    }
   }
 }
 </script>
