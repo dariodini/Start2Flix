@@ -12,7 +12,7 @@ class ApiProfiloController
     $profile = json_decode($_REQUEST['profile'] ?? null);
     if ($profile !== null) {
       if (Profilo::exists($profile->id)) {
-        $_SESSION['profile'] = Profilo::selectById($profile->id);
+        $_SESSION['profile'] = Profilo::selectById($profile->id)[0];
         Response::json('Profilo settato con successo!', 200);
       } else {
         Response::json("Il profilo non esiste!", 401);
