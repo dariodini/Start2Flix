@@ -110,6 +110,7 @@ class ApiUtenteController
     $email = $_REQUEST['email'] ?? null;
     $password = $_REQUEST['password'] ?? null;
 
+    session_start();
     if (isset($_SESSION['user'])) {
       Response::json('Già sei loggato!', 200);
     }
@@ -117,7 +118,6 @@ class ApiUtenteController
     if ($email !== null && $password !== null) {
       $utente = Utente::login($email, $password);
       if ($utente !== null) {
-        session_start();
         $_SESSION['user'] = $utente;
         Response::json($utente, 200);
       }
