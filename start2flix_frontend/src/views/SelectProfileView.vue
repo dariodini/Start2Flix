@@ -30,12 +30,7 @@ export default {
   },
   methods: {
     selectProfile(profile) {
-      const formData = new FormData()
-      formData.append('profile', JSON.stringify(profile))
-      this.$store.dispatch('selectProfile', {
-        profile: profile,
-        profileFormData: formData
-      })
+      this.$store.dispatch('selectProfile', profile)
     }
   },
   async beforeMount() {

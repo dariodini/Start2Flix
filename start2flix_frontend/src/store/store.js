@@ -145,10 +145,12 @@ const store = createStore({
       }
     },
     async selectProfile({ commit }, data){
-      commit('SET_PROFILE', data.profile);
+      commit('SET_PROFILE', data);
       try {
+        const formData = new FormData()
+        formData.append('profile', JSON.stringify(data))
         const response = await axios.post(
-          'http://127.0.0.1:8000/api/utente/profilo/set', data.profileFormData, {
+          'http://127.0.0.1:8000/api/utente/profilo/set', formData, {
           withCredentials: true
         });
         return response.data;
