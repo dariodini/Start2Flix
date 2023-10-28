@@ -146,6 +146,7 @@ export default {
     },
     changeProfile(profile) {
       this.$store.dispatch('selectProfile', profile)
+      this.$router.go()
     }
   }
 }
