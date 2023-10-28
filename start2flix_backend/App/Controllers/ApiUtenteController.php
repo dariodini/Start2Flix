@@ -125,4 +125,19 @@ class ApiUtenteController
     }
     Response::json("Inserisci email e password validi", 400);
   }
+
+  public function statoUtente()
+  {
+    session_start();
+
+    if (isset($_SESSION["user"])) {
+      if (isset($_SESSION["profile"])) {
+        Response::json(["userId" => $_SESSION["user"]->id, "profileId" => $_SESSION['profile']->id], 200);
+      } else {
+        Response::json(["userId" => $_SESSION["user"]->id], 200);
+      }
+    } else {
+      Response::json("Utente non loggato!", 401);
+    }
+  }
 }

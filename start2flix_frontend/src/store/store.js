@@ -158,6 +158,22 @@ const store = createStore({
         console.error(error);
       }
     },
+    async checkUserStatus({ dispatch }){
+      try {
+        await axios.get('http://127.0.0.1:8000/api/utente/stato', {
+          withCredentials: true
+        });
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          dispatch('resetUser')
+        }
+      }
+    },
+    resetUser({ commit }){
+      commit('SET_USER', null);
+      commit('SET_PROFILE', null);
+      commit('SET_PROFILES', null);
+    },
     async fetchMovies({ commit }) {
       commit('SET_MOVIES_LOADING', true)
       const options = {
