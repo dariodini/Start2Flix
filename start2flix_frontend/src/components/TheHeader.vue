@@ -9,7 +9,7 @@
         />
       </router-link>
       <div class="header__actions">
-        <div class="header-action-nav">
+        <div v-if="user && selectedProfile" class="header-action-nav">
           <router-link :to="{ name: 'homepage' }" class="header-action-nav__link">
             Home
           </router-link>
@@ -158,9 +158,11 @@ export default {
   top: 0;
   z-index: 5;
 
-  height: 90px;
+  height: 75px;
   margin-bottom: 2rem;
+  background-color: rgb(20, 20, 20);
   background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 10%, transparent);
+
   .start-container {
     height: 100%;
     display: flex;
@@ -184,6 +186,11 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
+    > :only-child {
+      flex: 1;
+      justify-content: flex-end;
+    }
   }
 
   &__dropdown {
