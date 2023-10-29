@@ -18,12 +18,26 @@ const router = createRouter({
       name: 'landing',
       meta: {
         showLoginButton: true
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.user) {
+          next('/browse');
+        } else {
+          next();
+        }
       }
     },
     {
       path: '/login',
       component: LoginView,
       name: 'login',
+      beforeEnter: (to, from, next) => {
+        if (store.getters.user) {
+          next('/browse');
+        } else {
+          next();
+        }
+      }
     },
     {
       path: '/signup',
@@ -31,12 +45,26 @@ const router = createRouter({
       name: 'signup',
       meta: {
         showLoginButton: true
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.user) {
+          next('/browse');
+        } else {
+          next();
+        }
       }
     },
     {
       path: '/create-profile',
       component: CreateProfileView,
       name: 'create-profile',
+      beforeEnter: (to, from, next) => {
+        if (store.getters.user) {
+          next();
+        } else {
+          next('/login');
+        }
+      }
     },
     {
       path: '/select-profile',
@@ -44,6 +72,13 @@ const router = createRouter({
       name: 'select-profile',
       meta: {
         hideHeader: true
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.user) {
+          next();
+        } else {
+          next('/login');
+        }
       }
     },
     {
@@ -54,6 +89,18 @@ const router = createRouter({
         showForm: true,
         showProfiles: true,
         logoSmall: true,
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.user) {
+          if (store.getters.profile){
+            next();
+          }
+          else{
+            next('/select-profile')
+          }
+        } else {
+          next('/login');
+        }
       }
     },
     {
@@ -63,6 +110,18 @@ const router = createRouter({
       meta: {
         showProfiles: true,
         logoSmall: true,
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.user) {
+          if (store.getters.profile){
+            next();
+          }
+          else{
+            next('/select-profile')
+          }
+        } else {
+          next('/login');
+        }
       }
     }
   ]
