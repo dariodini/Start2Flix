@@ -97,6 +97,12 @@ export default {
   justify-content: center;
   align-items: center;
 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   &__overlay {
     position: fixed;
     top: 0;
