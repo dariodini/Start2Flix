@@ -111,9 +111,6 @@ class ApiUtenteController
     $password = $_REQUEST['password'] ?? null;
 
     session_start();
-    if (isset($_SESSION['user'])) {
-      Response::json('Già sei loggato!', 200);
-    }
 
     if ($email !== null && $password !== null) {
       $utente = Utente::login($email, $password);
