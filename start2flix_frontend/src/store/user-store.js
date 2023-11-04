@@ -1,5 +1,9 @@
 import axios from 'axios'
 
+const axiosCredentials = axios.create({
+  withCredentials: true,
+})
+
 const state = {
   email: null,
   user: null,
@@ -42,7 +46,7 @@ const actions = {
     commit('SET_EMAIL', email)
   },
   async registerUser({ commit }, userData) {
-    axios
+    axiosCredentials
       .post('http://127.0.0.1:8000/api/utente', userData)
       .then(function (response) {
         console.log(response)
@@ -53,10 +57,8 @@ const actions = {
   },
   async loginUser({ commit }, userData) {
     try {
-      const response = await axios.post(
-        'http://127.0.0.1:8000/api/utente/login', userData, {
-        withCredentials: true
-      });
+      const response = await axiosCredentials.post(
+        'http://127.0.0.1:8000/api/utente/login', userData);
       const user = response.data;
       commit('SET_USER', user.id);
       return user;
@@ -65,7 +67,7 @@ const actions = {
     }
   },
   async addProfile({ commit }, userData) {
-    axios
+    axiosCredentials
       .post('http://127.0.0.1:8000/api/utente/profilo', userData)
       .then(function (response) {
         console.log(response)
@@ -76,10 +78,8 @@ const actions = {
   },
   async getProfiles({ commit }) {
     try {
-      const response = await axios.get(
-        'http://127.0.0.1:8000/api/utente/profili', {
-        withCredentials: true
-      })
+      const response = await axiosCredentials.get(
+        'http://127.0.0.1:8000/api/utente/profili')
       commit('SET_PROFILES', response.data)
     } catch (error) {
       console.error(error);
@@ -91,10 +91,8 @@ const actions = {
     try {
       const formData = new FormData()
       formData.append('profile', JSON.stringify(data))
-      const response = await axios.post(
-        'http://127.0.0.1:8000/api/utente/profilo/set', formData, {
-        withCredentials: true
-      });
+      const response = await axiosCredentials.post(
+        'http://127.0.0.1:8000/api/utente/profilo/set', formData);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -102,9 +100,7 @@ const actions = {
   },
   async checkUserStatus({ dispatch }) {
     try {
-      await axios.get('http://127.0.0.1:8000/api/utente/stato', {
-        withCredentials: true
-      });
+      await axiosCredentials.get('http://127.0.0.1:8000/api/utente/stato');
     } catch (error) {
       if (error.response && error.response.status === 401) {
         dispatch('resetUser')
@@ -120,9 +116,7 @@ const actions = {
     try {
       const formData = new FormData()
       formData.append('prodottoId', JSON.stringify(prodottoId))
-      await axios.post('http://127.0.0.1:8000/api/profilo/add-product', formData, {
-        withCredentials: true
-      });
+      await axiosCredentials.post('http://127.0.0.1:8000/api/profilo/add-product', formData);
     } catch (error) {
       console.log(error)
     }
