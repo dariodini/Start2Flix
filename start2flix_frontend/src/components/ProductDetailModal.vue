@@ -21,8 +21,11 @@
                 <img src="../assets/play-button.svg" alt="" />
                 Riproduci
               </button>
-              <button @click="addProductToList" class="button add-to-list-button">
-                <img src="../assets/add-to-list.svg" alt="Add to list button" />
+              <button @click="toggleProductFromList" class="button list-button">
+                <div
+                  ref="btnClass"
+                  :class="prodottoPresente ? 'remove-from-list' : 'add-to-list'"
+                ></div>
               </button>
             </div>
           </div>
@@ -87,7 +90,9 @@ export default {
     closeModal() {
       this.$emit('close-modal')
     },
-    addProductToList() {
+    toggleProductFromList() {
+      this.$refs.btnClass.classList.toggle('remove-from-list')
+      this.$refs.btnClass.classList.toggle('add-to-list')
       this.$store.dispatch('addProduct', this.product.id)
     },
     isProductInList() {
@@ -253,7 +258,7 @@ export default {
     }
   }
 
-  .add-to-list-button {
+  .list-button {
     border: 2px solid grey;
     background-color: rgba(42, 42, 42, 0.6);
     width: 35px;
@@ -263,6 +268,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 100ms all ease-in-out;
 
     &:hover {
       border: 2px solid rgb(229, 229, 229);
@@ -273,13 +279,37 @@ export default {
       height: 30px;
     }
 
-    img {
-      width: 17px;
-      height: 17px;
+    .add-to-list {
+      transform: rotate(-45deg);
+      height: 8px;
+      width: 14px;
+      border-left: 2px solid white;
+      opacity: 0.8;
+      border-bottom: 2px solid white;
+      opacity: 0.8;
+      margin-bottom: 2px;
+    }
 
-      @media screen and (max-width: 370px) {
-        width: 15px;
-        height: 15px;
+    .remove-from-list {
+      position: relative;
+      margin-top: 1px;
+
+      &::before,
+      &::after {
+        content: '';
+        width: 18px;
+        height: 1px;
+        border-bottom: 2px solid white;
+        opacity: 0.8;
+        position: absolute;
+        left: -50%;
+      }
+
+      &::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      &::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
       }
     }
   }
