@@ -126,7 +126,6 @@ const actions = {
       const formData = new FormData()
       formData.append('prodottoId', JSON.stringify(prodottoId))
       const response = await axiosCredentials.post('http://127.0.0.1:8000/api/profilo/check-product', formData);
-      console.log(response);
       if (response && response.status === 200) {
         return true
       } else {
