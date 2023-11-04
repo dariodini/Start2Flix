@@ -14,15 +14,12 @@
       </div>
       <div class="product-card__actions">
         <div class="button-group">
-          <button class="product-card__button play-button">
+          <button @click="openModal" class="product-card__button play-button">
             <img src="../assets/play-button.svg" alt="Play button" />
           </button>
-          <button class="product-card__button add-to-list-button">
-            <img src="../assets/add-to-list.svg" alt="Add to list button" />
-          </button>
         </div>
-        <button class="product-card__button expand-button">
-          <img src="../assets/expand-button.svg" alt="Expand button" @click="openModal" />
+        <button @click="openModal" class="product-card__button expand-button">
+          <img src="../assets/expand-button.svg" alt="Expand button" />
         </button>
       </div>
     </div>
