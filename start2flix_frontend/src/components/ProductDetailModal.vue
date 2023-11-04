@@ -57,8 +57,14 @@ export default {
     ProductDetailMeta
   },
   props: ['product'],
+  data() {
+    return {
+      prodottoPresente: false
+    }
+  },
   beforeMount() {
     this.$store.dispatch('fetchMovieDetails', this.product.id)
+    this.isProductInList()
   },
   computed: {
     ...mapGetters(['movieDetails', 'isMovieDetailsLoading']),
@@ -83,6 +89,16 @@ export default {
     },
     addProductToList() {
       this.$store.dispatch('addProduct', this.product.id)
+    },
+    isProductInList() {
+      this.$store
+        .dispatch('checkProductInList', this.product.id)
+        .then((response) => {
+          this.prodottoPresente = response
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     }
   }
 }
