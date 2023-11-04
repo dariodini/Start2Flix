@@ -17,3 +17,4 @@ $router->get('api/profilo/get-products', 'ApiProfiloController@getProducts');
 
 $router->post('api/profilo/add-product', 'ApiProfiloProdottoController@addProductToProfileList');
 $router->delete('api/profilo/remove-product', 'ApiProfiloProdottoController@deleteProductToProfileList');
+$router->post('api/profilo/check-product', 'ApiProfiloProdottoController@checkProductInList');
