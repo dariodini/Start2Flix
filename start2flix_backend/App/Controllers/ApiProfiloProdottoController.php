@@ -10,15 +10,24 @@ class ApiProfiloProdottoController
 {
   public static function addProductToProfileList()
   {
-    $profiloId = $_REQUEST['profiloId'];
     $prodottoId = $_REQUEST['prodottoId'];
+    session_start();
 
-    if (Profilo::exists($profiloId)) {
-      if (!empty($prodottoId)) {
-        ProfiloProdotto::create($prodottoId, $profiloId);
-        Response::json("Prodotto {$prodottoId} aggiunto con successo", 201);
+    if ((isset($_SESSION['profile']))) {
+      $profiloId = $_SESSION['profile']->id;
+      if (Profilo::exists($profiloId)) {
+        if (!empty($prodottoId)) {
+          if (!ProfiloProdotto::exist($prodottoId, $profiloId)) {
+            ProfiloProdotto::create($prodottoId, $profiloId);
+            Response::json("Prodotto {$prodottoId} aggiunto con successo", 201);
+          } else {
+            Response::json('Prodotto gia presente nella tua lista', 400);
+          }
+        } else {
+          Response::json("Inserisci i campi necessari", 400);
+        }
       } else {
-        Response::json("Inserisci i campi necessari", 400);
+        Response::json('Seleziona il profilo prima!', 401);
       }
     }
   }
