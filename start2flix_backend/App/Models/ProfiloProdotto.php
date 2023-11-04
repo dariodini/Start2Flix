@@ -14,8 +14,16 @@ class ProfiloProdotto
   public static function create($fkProdottoId, $fkProfiloId)
   {
     return App::get('database')->create('profiloProdotto', [
-      'fkUtenteId' => $fkProfiloId,
+      'fkProfiloId' => $fkProfiloId,
       'fkProdottoId' => $fkProdottoId
+    ]);
+  }
+
+  public static function exist($fkProdottoId, $fkProfiloId)
+  {
+    return App::get('database')->selectWhere('profiloProdotto', [
+      'fkProdottoId' => $fkProdottoId,
+      'fkProfiloId' => $fkProfiloId,
     ]);
   }
 
