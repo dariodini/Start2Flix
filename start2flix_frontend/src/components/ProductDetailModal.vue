@@ -21,7 +21,7 @@
                 <img src="../assets/play-button.svg" alt="" />
                 Riproduci
               </button>
-              <button class="button add-to-list-button">
+              <button @click="addProductToList" class="button add-to-list-button">
                 <img src="../assets/add-to-list.svg" alt="Add to list button" />
               </button>
             </div>
@@ -80,6 +80,9 @@ export default {
   methods: {
     closeModal() {
       this.$emit('close-modal')
+    },
+    addProductToList() {
+      this.$store.dispatch('addProduct', this.product.id)
     }
   }
 }

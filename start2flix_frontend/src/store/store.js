@@ -174,6 +174,17 @@ const store = createStore({
       commit('SET_PROFILE', null);
       commit('SET_PROFILES', null);
     },
+    async addProduct({ commit }, prodottoId){
+      try {
+        const formData = new FormData()
+        formData.append('prodottoId', JSON.stringify(prodottoId))
+        await axios.post('http://127.0.0.1:8000/api/profilo/add-product', formData, {
+          withCredentials: true
+        });
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async fetchMovies({ commit }) {
       commit('SET_MOVIES_LOADING', true)
       const options = {
