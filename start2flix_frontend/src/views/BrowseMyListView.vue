@@ -1,8 +1,8 @@
 <template>
   <product-section
     :notCarousel="true"
-    :isProductsLoading="isMoviesLoading"
-    :products="movies"
+    :isProductsLoading="productsInListLoading"
+    :products="productsInList"
     title="My list"
     @open-modal="openModal"
   ></product-section>
@@ -31,10 +31,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.$store.dispatch('fetchMovies')
+    await this.$store.dispatch('fetchProductsFromList')
   },
   computed: {
-    ...mapGetters(['movies', 'isMoviesLoading'])
+    ...mapGetters(['productsInList', 'productsInListLoading'])
   },
   created() {
     this.emitter.on('open-modal', this.handleOpenModal)
