@@ -302,7 +302,7 @@ export default {
       &::before,
       &::after {
         content: '';
-        width: 18px;
+        width: 17px;
         height: 1px;
         border-bottom: 2px solid white;
         opacity: 0.8;
