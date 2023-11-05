@@ -37,7 +37,9 @@ class Profilo
 
   public static function exists($profiloId)
   {
-    session_start();
+    if (!isset($_SESSION)) {
+      session_start();
+    }
     if (isset($_SESSION['user'])) {
       $idUtente = $_SESSION['user']->id;
       $profiliUtente = Utente::selectAllProfile($idUtente);
