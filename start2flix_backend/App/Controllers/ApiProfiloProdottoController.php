@@ -57,10 +57,21 @@ class ApiProfiloProdottoController
 
   public function deleteProductToProfileList()
   {
-    $profiloId = $_REQUEST['profiloId'];
     $prodottoId = $_REQUEST['prodottoId'];
+    session_start();
 
-    ProfiloProdotto::delete($prodottoId, $profiloId);
-    Response::json("Prodotto con ID: {$prodottoId} eliminato dalla lista", 200);
+    if ((isset($_SESSION['profile']))) {
+      $profiloId = $_SESSION['profile']->id;
+      if (Profilo::exists($profiloId)) {
+        if (!empty($prodottoId)) {
+          ProfiloProdotto::delete($prodottoId, $profiloId);
+          Response::json("Prodotto {$prodottoId} eliminato dalla lista", 200);
+        } else {
+          Response::json("Inserisci i campi necessari", 400);
+        }
+      } else {
+        Response::json('Seleziona il profilo prima!', 401);
+      }
+    }
   }
 }
