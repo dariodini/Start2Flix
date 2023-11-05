@@ -93,7 +93,12 @@ export default {
     toggleProductFromList() {
       this.$refs.btnClass.classList.toggle('remove-from-list')
       this.$refs.btnClass.classList.toggle('add-to-list')
-      this.$store.dispatch('addProduct', this.product.id)
+      if (!this.prodottoPresente) {
+        this.$store.dispatch('addProduct', this.product.id)
+      } else {
+        this.$store.dispatch('removeProduct', this.product.id)
+      }
+      this.isProductInList()
     },
     isProductInList() {
       this.$store
