@@ -74,12 +74,19 @@ class ApiProfiloController
 
   public function getProducts()
   {
-    $id = $_REQUEST['id'] ?? null;
-    if (Profilo::exists($id)) {
-      $products = Profilo::selectAllProducts($id);
-      Response::json($products, 200);
+    session_start();
+
+    if (isset($_SESSION["profile"])) {
+      $profiloId = $_SESSION['profile']->id;
+
+      if (Profilo::exists($profiloId)) {
+        $products = Profilo::selectAllProducts($profiloId);
+        Response::json($products, 200);
+      } else {
+        Response::json("Profilo con ID: {$profiloId} non trovato", 404);
+      }
     } else {
-      Response::json("Profilo con ID: {$id} non trovato", 404);
+      Response::json("Utente non loggato!", 401);
     }
   }
 }
