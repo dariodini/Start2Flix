@@ -11,11 +11,12 @@ class ProfiloProdotto
     return App::get('database')->selectAll('profiloProdotto');
   }
 
-  public static function create($fkProdottoId, $fkProfiloId)
+  public static function create($fkProdottoId, $fkProfiloId, $type)
   {
     return App::get('database')->create('profiloProdotto', [
       'fkProfiloId' => $fkProfiloId,
-      'fkProdottoId' => $fkProdottoId
+      'fkProdottoId' => $fkProdottoId,
+      'type' => $type,
     ]);
   }
 

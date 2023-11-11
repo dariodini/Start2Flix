@@ -11,14 +11,15 @@ class ApiProfiloProdottoController
   public static function addProductToProfileList()
   {
     $prodottoId = $_REQUEST['prodottoId'];
+    $type = $_REQUEST['type'];
     session_start();
 
     if ((isset($_SESSION['profile']))) {
       $profiloId = $_SESSION['profile']->id;
       if (Profilo::exists($profiloId)) {
-        if (!empty($prodottoId)) {
+        if (!empty($prodottoId) && !empty($type)) {
           if (!ProfiloProdotto::exist($prodottoId, $profiloId)) {
-            ProfiloProdotto::create($prodottoId, $profiloId);
+            ProfiloProdotto::create($prodottoId, $profiloId, $type);
             Response::json("Prodotto {$prodottoId} aggiunto con successo", 201);
           } else {
             Response::json('Prodotto gia presente nella tua lista', 400);
