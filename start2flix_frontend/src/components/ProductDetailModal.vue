@@ -94,7 +94,10 @@ export default {
       this.$refs.btnClass.classList.toggle('remove-from-list')
       this.$refs.btnClass.classList.toggle('add-to-list')
       if (!this.prodottoPresente) {
-        this.$store.dispatch('addProduct', this.product.id)
+        this.$store.dispatch('addProduct', {
+          productId: this.product.id,
+          type: this.product.media_type
+        })
       } else {
         this.$store.dispatch('removeProduct', this.product.id)
       }

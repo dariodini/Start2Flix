@@ -3,7 +3,7 @@
     :notCarousel="true"
     :isProductsLoading="productsInListLoading"
     :products="productsInList"
-    title="My list"
+    title="La mia lista"
     @open-modal="openModal"
   ></product-section>
 
@@ -27,14 +27,16 @@ export default {
   data() {
     return {
       showModal: false,
-      selectedProduct: null
+      selectedProduct: null,
+      productsInList: {}
     }
   },
   async beforeMount() {
     await this.$store.dispatch('fetchProductsFromList')
+    this.productsInList = this.$store.getters.productsInList
   },
   computed: {
-    ...mapGetters(['productsInList', 'productsInListLoading'])
+    ...mapGetters(['productsInListLoading'])
   },
   created() {
     this.emitter.on('open-modal', this.handleOpenModal)

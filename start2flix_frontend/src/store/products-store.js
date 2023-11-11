@@ -9,8 +9,10 @@ const state = {
   series: [],
   isSeriesLoading: false,
   filteredProducts: [],
-  isFilteredProductsLoading: false
-};
+  isFilteredProductsLoading: false,
+  productsInList: [],
+  productsInListLoading: false
+}
 
 const getters = {
   movies(state) {
@@ -36,8 +38,14 @@ const getters = {
   },
   isFilteredProductsLoading(state) {
     return state.isFilteredProductsLoading
+  },
+  productsInList(state) {
+    return state.productsInList
+  },
+  productsInListLoading(state) {
+    return state.productsInListLoading
   }
-};
+}
 
 const mutations = {
   SET_MOVIES(state, movies) {
@@ -63,8 +71,14 @@ const mutations = {
   },
   SET_FILTEREDPRODUCTS_LOADING(state, isFilteredProductsLoading) {
     state.isFilteredProductsLoading = isFilteredProductsLoading
+  },
+  SET_PRODUCTS_IN_LIST(state, products) {
+    state.productsInList = products
+  },
+  SET_PRODUCTS_IN_LIST_LOADING(state, isLoading) {
+    state.productsInListLoading = isLoading
   }
-};
+}
 
 const actions = {
   async fetchMovies({ commit }) {
@@ -150,12 +164,51 @@ const actions = {
     } finally {
       commit('SET_FILTEREDPRODUCTS_LOADING', false)
     }
+  },
+  async fetchProductsFromList({ commit, dispatch }) {
+    commit('SET_PRODUCTS_IN_LIST_LOADING', true);
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/profilo/get-products', {
+        withCredentials: true
+      });
+
+      if (response.data) {
+        const products = { results: [] };
+        const productPromises = response.data.map(async function (product) {
+          try {
+            const options = await dispatch('generateOptions', product);
+            const responseProduct = await axios.request(options);
+            return responseProduct.data;
+          } catch (error) {
+            console.error(error);
+            return {};
+          }
+        });
+        const resolvedProducts = await Promise.all(productPromises);
+        products.results = resolvedProducts;
+        commit('SET_PRODUCTS_IN_LIST', products);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      commit('SET_PRODUCTS_IN_LIST_LOADING', false);
+    }
+  },
+  generateOptions(context, product) {
+    let type = product.type == 'movie' ? 'movie' : 'tv'
+    return {
+      method: 'GET',
+      url: `https://api.themoviedb.org/3/${type}/${product.fkProdottoId}?language=it-IT&${API_KEY}`,
+      headers: {
+        accept: 'application/json',
+      }
+    }
   }
-};
+}
 
 export default {
   state,
   getters,
   mutations,
-  actions,
-};
+  actions
+}

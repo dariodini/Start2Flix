@@ -112,10 +112,11 @@ const actions = {
     commit('SET_PROFILE', null);
     commit('SET_PROFILES', null);
   },
-  async addProduct({ commit }, prodottoId) {
+  async addProduct({ commit }, payload) {
     try {
       const formData = new FormData()
-      formData.append('prodottoId', JSON.stringify(prodottoId))
+      formData.append('prodottoId', JSON.stringify(payload.productId))
+      formData.append('type', payload.type)
       await axiosCredentials.post('http://127.0.0.1:8000/api/profilo/add-product', formData);
     } catch (error) {
       console.log(error)
