@@ -72,18 +72,10 @@ export default {
   computed: {
     ...mapGetters(['movieDetails', 'isMovieDetailsLoading']),
     title() {
-      if (this.product.media_type == 'movie') {
-        return this.product.title
-      } else {
-        return this.product.name
-      }
+      return this.product.title || this.product.name
     },
     release_date() {
-      if (this.product.media_type == 'movie') {
-        return this.product.release_date
-      } else {
-        return this.product.first_air_date
-      }
+      return this.product.release_date || this.product.first_air_date
     }
   },
   methods: {

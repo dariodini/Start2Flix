@@ -31,11 +31,7 @@ export default {
   props: ['product'],
   computed: {
     title() {
-      if (this.product.media_type == 'movie') {
-        return this.product.title
-      } else {
-        return this.product.name
-      }
+      return this.product.title || this.product.name
     }
   },
   methods: {
