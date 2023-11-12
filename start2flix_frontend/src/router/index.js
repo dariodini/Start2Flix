@@ -8,6 +8,7 @@ import CreateProfileView from '../views/CreateProfileView.vue'
 import SelectProfileView from '../views/SelectProfileView.vue'
 import BrowseCatalogueView from '../views/BrowseCatalogueView.vue'
 import BrowseMyListView from '../views/BrowseMyListView.vue'
+import ManageAccountView from '../views/ManageAccountView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -107,6 +108,27 @@ const router = createRouter({
       path: '/browse/my-list',
       component: BrowseMyListView,
       name: 'my-list',
+      meta: {
+        showProfiles: true,
+        logoSmall: true,
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.user) {
+          if (store.getters.profile){
+            next();
+          }
+          else{
+            next('/select-profile')
+          }
+        } else {
+          next('/login');
+        }
+      }
+    },
+    {
+      path: '/manage-account',
+      component: ManageAccountView,
+      name: 'manage-account',
       meta: {
         showProfiles: true,
         logoSmall: true,
