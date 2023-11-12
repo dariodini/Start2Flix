@@ -123,6 +123,15 @@ class ApiUtenteController
     Response::json("Inserisci email e password validi", 400);
   }
 
+  public function logoutUtente()
+  {
+    session_start();
+    if (isset($_SESSION["user"])) {
+      Response::json(Utente::logout(), 200);
+    }
+    Response::json("Non sei loggato", 400);
+  }
+
   public function statoUtente()
   {
     session_start();

@@ -80,9 +80,13 @@
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
-                <router-link class="dropdown-item justify-content-center" type="button" to="/">
+                <span
+                  @click="logoutUser"
+                  class="dropdown-item justify-content-center"
+                  type="button"
+                >
                   Logout
-                </router-link>
+                </span>
               </li>
             </ul>
           </div>
@@ -147,6 +151,10 @@ export default {
     changeProfile(profile) {
       this.$store.dispatch('selectProfile', profile)
       this.$router.go()
+    },
+    logoutUser() {
+      this.$store.dispatch('logoutUser')
+      location.reload()
     }
   }
 }

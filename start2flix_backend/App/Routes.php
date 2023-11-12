@@ -2,6 +2,7 @@
 
 $router->post('api/utente', 'ApiUtenteController@addNewUtente');
 $router->post('api/utente/login', 'ApiUtenteController@loginUtente');
+$router->get('api/utente/logout', 'ApiUtenteController@logoutUtente');
 $router->put('api/utente', 'ApiUtenteController@updateUtente');
 $router->delete('api/utente', 'ApiUtenteController@deleteUtente');
 $router->get('api/utente/stato', 'ApiUtenteController@statoUtente');

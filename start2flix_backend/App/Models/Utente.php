@@ -70,4 +70,9 @@ class Utente
   {
     return App::get('database')->login($email, $password);
   }
+
+  public static function logout()
+  {
+    return session_destroy();
+  }
 }

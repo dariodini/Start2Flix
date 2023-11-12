@@ -66,6 +66,14 @@ const actions = {
       console.error(error);
     }
   },
+  async logoutUser({ dispatch }) {
+    try {
+      axiosCredentials.get('http://127.0.0.1:8000/api/utente/logout');
+      dispatch('resetUser')
+    } catch (error) {
+      console.error(error);
+    }
+  },
   async addProfile({ commit }, userData) {
     axiosCredentials
       .post('http://127.0.0.1:8000/api/utente/profilo', userData)
