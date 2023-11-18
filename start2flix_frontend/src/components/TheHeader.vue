@@ -67,11 +67,15 @@
                   class="dropdown-item"
                 />
               </li>
-              <li><hr class="dropdown-divider" /></li>
+              <li v-if="otherProfiles.length"><hr class="dropdown-divider" /></li>
               <li>
-                <button class="dropdown-item edit" type="button">
+                <router-link
+                  :to="{ name: 'manage-account' }"
+                  class="dropdown-item edit"
+                  type="button"
+                >
                   <img src="../assets/account-logo.svg" alt="account-logo" />Account
-                </button>
+                </router-link>
               </li>
               <li>
                 <button class="dropdown-item edit" type="button">
