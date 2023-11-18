@@ -76,7 +76,11 @@ const router = createRouter({
       },
       beforeEnter: (to, from, next) => {
         if (store.getters.user) {
-          next();
+          if (store.getters.profiles){
+            next()
+          } else{
+            next('/create-profile');
+          }
         } else {
           next('/login');
         }
