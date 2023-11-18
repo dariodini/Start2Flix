@@ -75,15 +75,17 @@ const router = createRouter({
         hideHeader: true
       },
       beforeEnter: (to, from, next) => {
-        if (store.getters.user) {
-          if (store.getters.profiles){
-            next()
-          } else{
-            next('/create-profile');
+        store.dispatch('getProfiles').then(() => {
+          if (store.getters.user) {
+            if (store.getters.profiles && store.getters.profiles.length){
+              next()
+            } else{
+              next('/create-profile');
+            }
+          } else {
+            next('/login');
           }
-        } else {
-          next('/login');
-        }
+        })
       }
     },
     {
