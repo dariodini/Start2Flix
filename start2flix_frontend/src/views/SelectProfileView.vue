@@ -1,14 +1,23 @@
 <template>
   <div v-if="user" class="profiles">
-    <h1 class="profiles__title">Chi vuole guardare StartFlix?</h1>
+    <h1 class="profiles__title">
+      <template v-if="!manageProfile"> Chi vuole guardare StartFlix? </template>
+      <template v-else> Gestisci i profili: </template>
+    </h1>
     <div class="profiles__list">
       <profile
         @select-profile="selectProfile"
         v-for="profile in profiles"
         :key="profile.id"
         :profile="profile"
+        :isEdit="manageProfile"
         to="/browse"
       ></profile>
+    </div>
+    <div v-if="manageProfile" class="text-center mt-5">
+      <router-link :to="{ name: 'homepage' }" class="btn btn-sm btn-light" id="manage-edit-btn"
+        >Fine</router-link
+      >
     </div>
   </div>
 </template>
@@ -19,6 +28,17 @@ import Profile from '../components/Profile.vue'
 export default {
   components: {
     Profile
+  },
+  async beforeMount() {
+    if (this.user) {
+      await this.$store.dispatch('getProfiles')
+    }
+    this.manageProfile = this.$route.meta.manageProfile
+  },
+  data() {
+    return {
+      manageProfile: false
+    }
   },
   computed: {
     user() {
@@ -31,11 +51,6 @@ export default {
   methods: {
     selectProfile(profile) {
       this.$store.dispatch('selectProfile', profile)
-    }
-  },
-  async beforeMount() {
-    if (this.user) {
-      await this.$store.dispatch('getProfiles')
     }
   }
 }
@@ -63,5 +78,10 @@ export default {
     justify-content: center;
     column-gap: 5rem;
   }
+}
+
+#manage-edit-btn {
+  font-size: 1.25rem;
+  padding: 0.25rem 2rem;
 }
 </style>

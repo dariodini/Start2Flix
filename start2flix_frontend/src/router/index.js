@@ -151,7 +151,16 @@ const router = createRouter({
           next('/login');
         }
       }
-    }
+    },
+    {
+      path: '/manage-profiles',
+      component: SelectProfileView,
+      name: 'manage-profiles',
+      meta: {
+        hideHeader: true,
+        manageProfile: true,
+      },
+    },
   ]
 })
 

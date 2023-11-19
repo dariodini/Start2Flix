@@ -78,9 +78,13 @@
                 </router-link>
               </li>
               <li>
-                <button class="dropdown-item edit" type="button">
+                <router-link
+                  :to="{ name: 'manage-profiles' }"
+                  class="dropdown-item edit"
+                  type="button"
+                >
                   <img src="../assets/edit-logo.svg" alt="edit-logo" />Manage profile
-                </button>
+                </router-link>
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
