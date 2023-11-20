@@ -146,4 +146,15 @@ class ApiUtenteController
       Response::json("Utente non loggato!", 401);
     }
   }
+
+  public function informazioniUtente()
+  {
+    session_start();
+
+    if (isset($_SESSION["user"])) {
+      Response::json(Utente::informazioniUtente($_SESSION["user"]->id), 200);
+    } else {
+      Response::json("Utente non loggato!", 401);
+    }
+  }
 }

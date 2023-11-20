@@ -9,6 +9,7 @@ const state = {
   user: null,
   profiles: null,
   profile: null,
+  info: null,
 };
 
 const getters = {
@@ -24,6 +25,9 @@ const getters = {
   profile(state) {
     return state.profile
   },
+  info(state) {
+    return state.info
+  }
 };
 
 const mutations = {
@@ -39,6 +43,9 @@ const mutations = {
   SET_PROFILE(state, profile) {
     state.profile = profile
   },
+  SET_INFO(state, info) {
+    state.info = info
+  }
 };
 
 const actions = {
@@ -151,6 +158,16 @@ const actions = {
       }
     } catch (error) {
       console.log(error)
+    }
+  },
+  async getInfo({ commit }) {
+    try {
+      const response = await axiosCredentials.get(
+        'http://127.0.0.1:8000/api/utente/informazioni')
+      commit('SET_INFO', response.data)
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   },
 };

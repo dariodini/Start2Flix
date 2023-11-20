@@ -156,4 +156,21 @@ class QueryBuilder
     }
     return null;
   }
+
+  public function selectFieldsById($table, $fields, $userId)
+  {
+    $selectFields = implode(', ', $fields);
+    $sql = "SELECT $selectFields FROM $table WHERE id = :id";
+
+    try {
+      $statement = $this->pdo->prepare($sql);
+      $statement->bindValue(':id', $userId);
+      $statement->execute();
+
+      return $statement->fetch(PDO::FETCH_OBJ);
+    } catch (\Exception $e) {
+      echo "An error occurred while executing the query. Try later.";
+      return null;
+    }
+  }
 }

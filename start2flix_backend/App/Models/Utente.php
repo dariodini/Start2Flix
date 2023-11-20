@@ -75,4 +75,9 @@ class Utente
   {
     return session_destroy();
   }
+
+  public static function informazioniUtente($idUtente)
+  {
+    return App::get('database')->selectFieldsById('utente', ['nome', 'cognome', 'sesso', 'telefono'], $idUtente);
+  }
 }

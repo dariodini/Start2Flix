@@ -69,6 +69,12 @@ export default {
   },
   async beforeMount() {
     await this.$store.dispatch('getProfiles')
+    await this.$store.dispatch('getInfo')
+
+    this.nome = this.info.nome
+    this.cognome = this.info.cognome
+    this.sesso = this.info.sesso
+    this.telefono = this.info.telefono
   },
   data() {
     return {
@@ -82,6 +88,9 @@ export default {
   computed: {
     profiles() {
       return this.$store.getters.profiles
+    },
+    info() {
+      return this.$store.getters.info
     }
   },
   methods: {
