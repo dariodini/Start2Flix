@@ -23,15 +23,13 @@ class Utente
     ]);
   }
 
-  public static function update($nome, $cognome, $sesso, $telefono, $email, $password, $utenteId)
+  public static function update($nome, $cognome, $sesso, $telefono, $utenteId)
   {
     return App::get('database')->update('utente', [
       'nome' => $nome,
       'cognome' => $cognome,
       'sesso' => $sesso,
       'telefono' => $telefono,
-      'email' => $email,
-      'password' => $password,
       'id' => $utenteId
     ]);
   }

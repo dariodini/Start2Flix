@@ -94,7 +94,18 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {}
+    handleSubmit() {
+      this.$store
+        .dispatch('updateUserInfo', {
+          nome: this.nome,
+          cognome: this.cognome,
+          sesso: this.sesso,
+          telefono: this.telefono
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    }
   }
 }
 </script>

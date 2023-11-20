@@ -41,37 +41,34 @@ class ApiUtenteController
     $cognome = $_REQUEST['cognome'] ?? null;
     $sesso = $_REQUEST['sesso'] ?? null;
     $telefono = $_REQUEST['telefono'] ?? null;
-    $email = $_REQUEST['email'] ?? null;
-    $password = $_REQUEST['password'] ?? null;
-    $id = $_REQUEST['id'] ?? null;
 
-    if (Utente::exists($id)) {
-      $utente = Utente::selectById($id);
+    session_start();
+    if (isset($_SESSION['user'])) {
+      $utenteId = $_SESSION['user']->id;
 
-      if ($nome !== null) {
-        $utente->nome = $nome;
-      }
-      if ($cognome !== null) {
-        $utente->cognome = $cognome;
-      }
-      if ($sesso !== null) {
-        $utente->sesso = $sesso;
-      }
-      if ($telefono !== null) {
-        $utente->telefono = $telefono;
-      }
-      if ($email !== null) {
-        $utente->email = $email;
-      }
-      if ($password !== null) {
-        $utente->password = $password;
-      }
+      if (Utente::exists($utenteId)) {
+        $utente = Utente::selectById($utenteId)[0];
+        if ($nome !== null) {
+          $utente->nome = $nome;
+        }
+        if ($cognome !== null) {
+          $utente->cognome = $cognome;
+        }
+        if ($sesso !== null) {
+          $utente->sesso = $sesso;
+        }
+        if ($telefono !== null) {
+          $utente->telefono = $telefono;
+        }
 
-      Utente::update($utente->nome, $utente->cognome, $utente->sesso, $utente->telefono, $utente->email, $utente->password, $utente->utenteId);
+        Utente::update($utente->nome, $utente->cognome, $utente->sesso, $utente->telefono, $utenteId);
 
-      Response::json("Utente con ID: {$id} aggiornato", 200);
+        Response::json("Utente con ID: {$utenteId} aggiornato", 200);
+      } else {
+        Response::json("Inserisci un valido ID per aggiornare un Utente", 400);
+      }
     } else {
-      Response::json("Inserisci un valido ID per aggiornare un Utente", 400);
+      Response::json("Non sei loggato!", 400);
     }
   }
 

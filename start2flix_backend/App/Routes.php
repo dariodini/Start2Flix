@@ -8,6 +8,7 @@ $router->delete('api/utente', 'ApiUtenteController@deleteUtente');
 $router->get('api/utente/stato', 'ApiUtenteController@statoUtente');
 $router->get('api/utente/profili', 'ApiUtenteController@getProfiles');
 $router->get('api/utente/informazioni', 'ApiUtenteController@informazioniUtente');
+$router->post('api/utente/aggiorna-informazioni', 'ApiUtenteController@updateUtente');
 $router->post('api/utente/profilo/set', 'ApiProfiloController@setProfile');
 
 

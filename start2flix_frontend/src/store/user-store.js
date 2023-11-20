@@ -170,6 +170,25 @@ const actions = {
       throw error;
     }
   },
+  async updateUserInfo({ commit }, data) {
+    try {
+      const formData = new FormData()
+      formData.append('nome', data.nome)
+      formData.append('cognome', data.cognome)
+      formData.append('sesso', data.sesso)
+      formData.append('telefono', data.telefono)
+
+      const response = await axiosCredentials.post('http://127.0.0.1:8000/api/utente/aggiorna-informazioni', formData);
+      if (response && response.status === 200) {
+        return true
+      } else {
+        return false
+      }
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  },
 };
 
 export default {
