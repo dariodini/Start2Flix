@@ -89,4 +89,20 @@ class ApiProfiloController
       Response::json("Utente non loggato!", 401);
     }
   }
+  public function getProfileById()
+  {
+    session_start();
+
+    $id = $_REQUEST['id'] ?? null;
+
+    if (!empty($id)) {
+      if (isset($_SESSION["user"])) {
+        Response::json(Profilo::selectById($id)[0], 200);
+      } else {
+        Response::json("Utente non loggato!", 401);
+      }
+    } else {
+      Response::json("Inserisci tutti i campi necessari", 400);
+    }
+  }
 }

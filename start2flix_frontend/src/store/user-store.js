@@ -189,6 +189,18 @@ const actions = {
       return false
     }
   },
+  async getSelectedProfile({commit}, profiloId) {
+    try{
+      const formData = new FormData()
+      formData.append('id', profiloId)
+
+      const response = await axiosCredentials.post('http://127.0.0.1:8000/api/utente/get-profilo', formData);
+      return response.data
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  }
 };
 
 export default {
