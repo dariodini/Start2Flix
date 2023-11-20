@@ -9,6 +9,7 @@ import SelectProfileView from '../views/SelectProfileView.vue'
 import BrowseCatalogueView from '../views/BrowseCatalogueView.vue'
 import BrowseMyListView from '../views/BrowseMyListView.vue'
 import ManageAccountView from '../views/ManageAccountView.vue'
+import ManageProfileView from '../views/ManageProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -159,6 +160,15 @@ const router = createRouter({
       meta: {
         hideHeader: true,
         manageProfile: true,
+      },
+    },
+    {
+      path: '/manage-profile/:id',
+      component: ManageProfileView,
+      name: 'manage-profile',
+      meta: {
+        showProfiles: true,
+        logoSmall: true,
       },
     },
   ]

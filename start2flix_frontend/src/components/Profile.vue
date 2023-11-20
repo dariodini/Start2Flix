@@ -1,8 +1,5 @@
 <template>
-  <router-link
-    :class="['profile', { 'profile--edit': isEdit }]"
-    @click="$emit('select-profile', profile)"
-  >
+  <span :class="['profile', { 'profile--edit': isEdit }]" @click="handleClick">
     <div class="profile__image-container">
       <img
         :src="$helpers.getImagePath(profile.image)"
@@ -14,12 +11,21 @@
       </span>
     </div>
     <span class="profile__name">{{ profile.nome }}</span>
-  </router-link>
+  </span>
 </template>
 
 <script>
 export default {
-  props: ['profile', 'isEdit']
+  props: ['profile', 'isEdit'],
+  methods: {
+    handleClick() {
+      if (!this.isEdit) {
+        this.$emit('select-profile', this.profile)
+      } else {
+        this.$router.push({ name: 'manage-profile', params: { id: this.profile.id } })
+      }
+    }
+  }
 }
 </script>
 
@@ -33,6 +39,7 @@ export default {
   width: 200px;
 
   text-decoration: none;
+  cursor: pointer;
 
   &__image-container {
     position: relative;

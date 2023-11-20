@@ -11,7 +11,6 @@
         :key="profile.id"
         :profile="profile"
         :isEdit="manageProfile"
-        to="/browse"
       ></profile>
     </div>
     <div v-if="manageProfile" class="text-center mt-5">
@@ -50,7 +49,10 @@ export default {
   },
   methods: {
     selectProfile(profile) {
-      this.$store.dispatch('selectProfile', profile)
+      if (!this.manageProfile) {
+        this.$store.dispatch('selectProfile', profile)
+        this.$router.push('/browse')
+      }
     }
   }
 }
