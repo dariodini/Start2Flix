@@ -4,10 +4,18 @@ const API_KEY = import.meta.env.VITE_APP_API_KEY
 const state = {
   movies: [],
   isMoviesLoading: false,
+  popularMovies:[],
+  isPopularMoviesLoading: false,
+  topRatedMovies:[],
+  isTopRatedMoviesLoading: false,
   movieDetails: [],
   ismovieDetailsLoading: false,
   series: [],
   isSeriesLoading: false,
+  popularSeries: [],
+  isPopularSeriesLoading: false,
+  topRatedSeries: [],
+  isTopRatedSeriesLoading: false,
   filteredProducts: [],
   isFilteredProductsLoading: false,
   productsInList: [],
@@ -21,6 +29,18 @@ const getters = {
   isMoviesLoading(state) {
     return state.isMoviesLoading
   },
+  popularMovies(state) {
+    return state.popularMovies
+  },
+  isPopularMoviesLoading(state) {
+    return state.isPopularMoviesLoading
+  },
+  topRatedMovies(state) {
+    return state.topRatedMovies
+  },
+  isTopRatedMoviesLoading(state) {
+    return state.isTopRatedMoviesLoading
+  },
   movieDetails(state) {
     return state.movieDetails
   },
@@ -32,6 +52,18 @@ const getters = {
   },
   isSeriesLoading(state) {
     return state.isSeriesLoading
+  },
+  popularSeries(state) {
+    return state.popularSeries
+  },
+  isPopularSeriesLoading(state) {
+    return state.isPopularSeriesLoading
+  },
+  topRatedSeries(state) {
+    return state.topRatedSeries
+  },
+  isTopRatedSeriesLoading(state) {
+    return state.isTopRatedSeriesLoading
   },
   filteredProducts(state) {
     return state.filteredProducts
@@ -54,6 +86,18 @@ const mutations = {
   SET_MOVIES_LOADING(state, isMoviesLoading) {
     state.isMoviesLoading = isMoviesLoading
   },
+  SET_POPULAR_MOVIES(state, popularMovies) {
+    state.popularMovies = popularMovies
+  },
+  SET_POPULAR_MOVIES_LOADING(state, isPopularMoviesLoading) {
+    state.isPopularMoviesLoading = isPopularMoviesLoading
+  },
+  SET_TOP_RATED_MOVIES(state, topRatedMovies) {
+    state.topRatedMovies = topRatedMovies
+  },
+  SET_TOP_RATED_MOVIES_LOADING(state, isTopRatedMoviesLoading) {
+    state.isTopRatedMoviesLoading = isTopRatedMoviesLoading
+  },
   SET_MOVIE_DETAILS(state, movieDetails) {
     state.movieDetails = movieDetails
   },
@@ -65,6 +109,18 @@ const mutations = {
   },
   SET_SERIES_LOADING(state, isSeriesLoading) {
     state.isSeriesLoading = isSeriesLoading
+  },
+  SET_POPULAR_SERIES(state, popularSeries) {
+    state.popularSeries = popularSeries
+  },
+  SET_POPULAR_SERIES_LOADING(state, isPopularSeriesLoading) {
+    state.isPopularSeriesLoading = isPopularSeriesLoading
+  },
+  SET_TOP_RATED_SERIES(state, topRatedSeries) {
+    state.topRatedSeries = topRatedSeries
+  },
+  SET_TOP_RATED_SERIES_LOADING(state, isTopRatedSeriesLoading) {
+    state.isTopRatedSeriesLoading = isTopRatedSeriesLoading
   },
   SET_FILTEREDPRODUCTS(state, products) {
     state.filteredProducts = products
@@ -101,6 +157,50 @@ const actions = {
       console.error(error)
     } finally {
       commit('SET_MOVIES_LOADING', false)
+    }
+  },
+  async fetchPopularMovies({ commit }) {
+    commit('SET_POPULAR_MOVIES_LOADING', true)
+    const options = {
+      method: 'GET',
+      url: `https://api.themoviedb.org/3/movie/popular?language=it-IT&${API_KEY}`,
+      headers: {
+        accept: 'application/json'
+      }
+    }
+    try {
+      const response = await axios.request(options)
+      const filteredData = {
+        ...response.data,
+        results: response.data.results.filter((data) => data.poster_path && data.backdrop_path)
+      }
+      commit('SET_POPULAR_MOVIES', filteredData)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      commit('SET_POPULAR_MOVIES_LOADING', false)
+    }
+  },
+  async fetchTopRatedMovies({ commit }) {
+    commit('SET_TOP_RATED_MOVIES_LOADING', true)
+    const options = {
+      method: 'GET',
+      url: `https://api.themoviedb.org/3/movie/top_rated?language=it-IT&${API_KEY}`,
+      headers: {
+        accept: 'application/json'
+      }
+    }
+    try {
+      const response = await axios.request(options)
+      const filteredData = {
+        ...response.data,
+        results: response.data.results.filter((data) => data.poster_path && data.backdrop_path)
+      }
+      commit('SET_TOP_RATED_MOVIES', filteredData)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      commit('SET_TOP_RATED_MOVIES_LOADING', false)
     }
   },
   async fetchMovieDetails({ commit }, id) {
@@ -141,6 +241,50 @@ const actions = {
       console.error(error)
     } finally {
       commit('SET_SERIES_LOADING', false)
+    }
+  },
+  async fetchPopularSeries({ commit }) {
+    commit('SET_POPULAR_SERIES_LOADING', true)
+    const options = {
+      method: 'GET',
+      url: `https://api.themoviedb.org/3/tv/popular?language=it-IT&${API_KEY}`,
+      headers: {
+        accept: 'application/json'
+      }
+    }
+    try {
+      const response = await axios.request(options)
+      const filteredData = {
+        ...response.data,
+        results: response.data.results.filter((data) => data.poster_path && data.backdrop_path)
+      }
+      commit('SET_POPULAR_SERIES', filteredData)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      commit('SET_POPULAR_SERIES_LOADING', false)
+    }
+  },
+  async fetchTopRatedSeries({ commit }) {
+    commit('SET_TOP_RATED_SERIES_LOADING', true)
+    const options = {
+      method: 'GET',
+      url: `https://api.themoviedb.org/3/tv/top_rated?language=it-IT&${API_KEY}`,
+      headers: {
+        accept: 'application/json'
+      }
+    }
+    try {
+      const response = await axios.request(options)
+      const filteredData = {
+        ...response.data,
+        results: response.data.results.filter((data) => data.poster_path && data.backdrop_path)
+      }
+      commit('SET_TOP_RATED_SERIES', filteredData)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      commit('SET_TOP_RATED_SERIES_LOADING', false)
     }
   },
   async filterProducts({ commit }, terms) {

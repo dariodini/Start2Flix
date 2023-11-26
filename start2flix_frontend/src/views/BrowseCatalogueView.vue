@@ -3,13 +3,37 @@
     <product-section
       :isProductsLoading="isMoviesLoading"
       :products="movies"
-      title="Movies"
+      title="Film"
+    ></product-section>
+
+    <product-section
+      :isProductsLoading="isPopularMoviesLoading"
+      :products="popularMovies"
+      title="Film più popolari"
+    ></product-section>
+
+    <product-section
+      :isProductsLoading="isTopRatedMoviesLoading"
+      :products="topRatedMovies"
+      title="Film più visti di sempre"
     ></product-section>
 
     <product-section
       :isProductsLoading="isSeriesLoading"
       :products="series"
-      title="Series"
+      title="Serie TV"
+    ></product-section>
+
+    <product-section
+      :isProductsLoading="isPopularSeriesLoading"
+      :products="popularSeries"
+      title="Serie TV più popolari"
+    ></product-section>
+
+    <product-section
+      :isProductsLoading="isTopRatedSeriesLoading"
+      :products="topRatedSeries"
+      title="Serie TV più viste di sempre"
     ></product-section>
   </div>
 
@@ -48,14 +72,26 @@ export default {
   },
   async beforeMount() {
     await this.$store.dispatch('fetchMovies')
+    await this.$store.dispatch('fetchPopularMovies')
+    await this.$store.dispatch('fetchTopRatedMovies')
     await this.$store.dispatch('fetchSeries')
+    await this.$store.dispatch('fetchPopularSeries')
+    await this.$store.dispatch('fetchTopRatedSeries')
   },
   computed: {
     ...mapGetters([
       'movies',
       'isMoviesLoading',
+      'topRatedMovies',
+      'isTopRatedMoviesLoading',
+      'popularMovies',
+      'isPopularMoviesLoading',
       'series',
       'isSeriesLoading',
+      'popularSeries',
+      'isPopularSeriesLoading',
+      'topRatedSeries',
+      'isTopRatedSeriesLoading',
       'filteredProducts',
       'isFilteredProductsLoading'
     ])
