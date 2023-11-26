@@ -1,6 +1,8 @@
 <template>
   <div class="index-content row">
-    <h2 class="index-content__index col-md-3">{{ index }}</h2>
+    <h2 class="index-content__index col-md-3">
+      <slot name="index"></slot>
+    </h2>
     <div class="index-content__content col-md-9">
       <slot></slot>
     </div>
@@ -8,9 +10,7 @@
 </template>
 
 <script>
-export default {
-  props: ['index']
-}
+export default {}
 </script>
 
 <style lang="scss" scoped>

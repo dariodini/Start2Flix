@@ -122,6 +122,9 @@ const actions = {
       }
     }
   },
+  async refreshProfiles({ commit }, profile){
+    commit('SET_PROFILE', profile)
+  },
   resetUser({ commit }) {
     commit('SET_USER', null);
     commit('SET_PROFILE', null);
@@ -200,7 +203,25 @@ const actions = {
       console.log(error)
       return false
     }
-  }
+  },
+  async updateProfile({ commit }, data) {
+    try {
+      const formData = new FormData()
+      formData.append('id', data.id)
+      formData.append('nome', data.nome)
+      formData.append('image', data.image)
+
+      const response = await axiosCredentials.post('http://127.0.0.1:8000/api/utente/profilo/aggiorna-informazioni', formData);
+      if (response && response.status === 200) {
+        return true
+      } else {
+        return false
+      }
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  },
 };
 
 export default {

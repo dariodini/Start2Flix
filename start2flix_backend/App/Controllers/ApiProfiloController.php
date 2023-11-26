@@ -38,12 +38,12 @@ class ApiProfiloController
 
   public function updateProfile()
   {
+    $id = $_REQUEST['id'] ?? null;
     $nome = $_REQUEST['nome'] ?? null;
     $image = $_REQUEST['image'] ?? null;
-    $id = $_REQUEST['id'] ?? null;
 
     if (Profilo::exists($id)) {
-      $profilo = Profilo::selectById($id);
+      $profilo = Profilo::selectById($id)[0];
 
       if ($nome !== null) {
         $profilo->nome = $nome;
@@ -52,7 +52,7 @@ class ApiProfiloController
         $profilo->image = (int)$image;
       }
 
-      Profilo::update($profilo->fkUtenteId, $profilo->nome, $profilo->image, $profilo->profiloId);
+      Profilo::update($profilo->fkUtenteId, $profilo->nome, $profilo->image, $id);
 
       Response::json("Profilo con ID: {$id} aggiornato", 200);
     } else {

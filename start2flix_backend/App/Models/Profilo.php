@@ -26,7 +26,7 @@ class Profilo
       'fkUtenteId' => $fkUtenteId,
       'nome' => $nome,
       'image' => $image,
-      'profiloId' => $profiloId
+      'id' => $profiloId
     ]);
   }
 

@@ -1,7 +1,8 @@
 <template>
   <div class="manage-account">
     <h1 class="manage-account__title">Account</h1>
-    <index-content index="Modifica informazioni">
+    <index-content>
+      <template #index>Modifica informazioni</template>
       <form @submit.prevent="handleSubmit" class="signup__form">
         <div class="row gx-3 gy-3">
           <div class="col-md-6">
@@ -45,7 +46,8 @@
       </form>
     </index-content>
 
-    <index-content index="Modifica i profili">
+    <index-content>
+      <template #index>Modifica i profili</template>
       <div class="profile-container">
         <compact-profile
           v-for="(profile, index) in profiles"
@@ -110,7 +112,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .manage-account {
   padding: 0 1rem;
 

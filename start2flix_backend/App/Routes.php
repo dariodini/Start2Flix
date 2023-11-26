@@ -13,7 +13,7 @@ $router->post('api/utente/profilo/set', 'ApiProfiloController@setProfile');
 
 
 $router->post('api/utente/profilo', 'ApiProfiloController@addNewProfile');
-$router->put('api/utente/profilo', 'ApiProfiloController@updateProfile');
+$router->post('api/utente/profilo/aggiorna-informazioni', 'ApiProfiloController@updateProfile');
 $router->delete('api/utente/profilo', 'ApiProfiloController@deleteProfile');
 $router->get('api/profilo/get-products', 'ApiProfiloController@getProducts');
 $router->post('api/utente/get-profilo', 'ApiProfiloController@getProfileById');

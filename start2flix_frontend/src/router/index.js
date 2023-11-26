@@ -167,8 +167,7 @@ const router = createRouter({
       component: ManageProfileView,
       name: 'manage-profile',
       meta: {
-        showProfiles: true,
-        logoSmall: true,
+        hideHeader: true,
       },
     },
   ]
