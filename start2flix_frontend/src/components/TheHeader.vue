@@ -27,22 +27,19 @@
           </router-link>
 
           <div v-if="showForm" class="form-container">
-            <img
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseSearchForm"
-              aria-expanded="false"
-              aria-controls="collapseSearchForm"
-              src="../assets/search-logo.svg"
-              alt=""
-            />
-            <form class="collapse collapse-horizontal ms-3" id="collapseSearchForm" @submit.prevent>
+            <img type="button" src="../assets/search-logo.svg" alt="" @click="toggleForm" />
+            <form
+              :class="['collapse', 'collapse-horizontal', 'ms-3', { show: showToggleForm }]"
+              id="collapseSearchForm"
+              ref="form"
+              @submit.prevent
+            >
               <div class="input-group" ref="input-group">
                 <input
                   type="text"
                   class="form-control"
                   id="insertedName"
-                  placeholder="Movies or series"
+                  placeholder="Inserisci titolo"
                   @input="handleInput"
                   v-model="insertedName"
                 />
@@ -50,7 +47,11 @@
             </form>
           </div>
 
-          <div v-if="user && selectedProfile" class="header__dropdown">
+          <div
+            v-if="user && selectedProfile && !showToggleForm"
+            ref="selettoreProfili"
+            class="header__dropdown"
+          >
             <CompactProfile
               @change-profile="changeProfile"
               :profile="selectedProfile"
@@ -111,7 +112,8 @@ export default {
   components: { CompactProfile },
   data() {
     return {
-      insertedName: ''
+      insertedName: '',
+      showToggleForm: false
     }
   },
   computed: {
@@ -163,6 +165,9 @@ export default {
     logoutUser() {
       this.$store.dispatch('logoutUser')
       location.reload()
+    },
+    toggleForm() {
+      this.showToggleForm = !this.showToggleForm
     }
   }
 }
@@ -225,6 +230,21 @@ export default {
   }
 
   .form-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    margin-right: -2rem;
+
+    @media screen and (max-width: 576px) {
+      margin-right: -1rem;
+    }
+
+    @media screen and (max-width: 476px) {
+      margin-right: 0;
+    }
+
     img {
       @media screen and (max-width: 476px) {
         width: 17px;

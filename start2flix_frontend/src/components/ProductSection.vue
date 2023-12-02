@@ -32,7 +32,10 @@
       </div>
     </div>
     <div v-else>
-      <div class="alert alert-primary">Non ci sono titoli che corrispondono alla tua ricerca</div>
+      <div class="alert alert-primary">
+        <template v-if="!myList">Non ci sono titoli che corrispondono alla tua ricerca</template>
+        <template v-else> Non hai ancora aggiunto nessun prodotto alla tua lista! </template>
+      </div>
     </div>
   </div>
   <div v-else>Caricamento in corso...</div>
@@ -42,7 +45,7 @@
 import ProductCard from './productcard.vue'
 
 export default {
-  props: ['isProductsLoading', 'products', 'title', 'notCarousel'],
+  props: ['isProductsLoading', 'products', 'title', 'notCarousel', 'myList'],
   components: {
     ProductCard
   },

@@ -41,6 +41,16 @@ export default {
     font-size: 24px;
     font-weight: 500;
     margin-left: 5px;
+
+    @media screen and (max-width: 576px) {
+      padding: 0.5rem 1rem;
+      font-size: 20px;
+    }
+
+    @media screen and (max-width: 476px) {
+      padding: 0.5rem 1rem;
+      font-size: 18px;
+    }
   }
 
   .form-group {

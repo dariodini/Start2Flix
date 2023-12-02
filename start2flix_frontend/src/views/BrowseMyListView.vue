@@ -3,6 +3,7 @@
     :notCarousel="true"
     :isProductsLoading="productsInListLoading"
     :products="productsInList"
+    :myList="true"
     title="La mia lista"
     @open-modal="openModal"
   ></product-section>

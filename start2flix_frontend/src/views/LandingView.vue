@@ -23,6 +23,10 @@ export default {
 <style scoped lang="scss">
 .landing-container {
   padding: 10rem 0;
+
+  @media screen and (max-width: 576px) {
+    padding: 5rem 0;
+  }
 }
 .hero {
   color: white;
@@ -35,15 +39,27 @@ export default {
   &__title {
     font-size: 3rem;
     font-weight: 900;
+
+    @media screen and (max-width: 476px) {
+      font-size: 2.75rem;
+    }
   }
   &__subtitle {
     font-size: 1.5rem;
     font-weight: 400;
+
+    @media screen and (max-width: 476px) {
+      font-size: 1.25rem;
+    }
   }
   &__description {
     font-size: 1.25rem;
     font-weight: 400;
     line-height: 1.875;
+
+    @media screen and (max-width: 476px) {
+      font-size: 1rem;
+    }
   }
 }
 </style>

@@ -17,4 +17,8 @@
     -webkit-transform 0.1s ease,
     -moz-transform 0.1s ease,
     -o-transform 0.1s ease;
+
+  @media screen and (max-width: 476px) {
+    font-size: 1rem;
+  }
 }

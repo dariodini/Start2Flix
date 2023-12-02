@@ -138,6 +138,14 @@ export default {
   background-color: white;
   border-radius: 4px;
 
+  @media screen and (max-width: 992px) {
+    max-width: 75%;
+  }
+
+  @media screen and (max-width: 476px) {
+    max-width: 100%;
+  }
+
   &__title {
     font-size: 2rem;
     font-weight: 500;
@@ -160,6 +168,10 @@ export default {
     font-size: 1.5rem;
     height: 64px;
     margin: 1rem 0;
+
+    @media screen and (max-width: 476px) {
+      font-size: 1.25rem;
+    }
   }
 }
 </style>
