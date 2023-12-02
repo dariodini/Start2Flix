@@ -51,6 +51,10 @@ export default {
   transform-origin: center;
   transition: 0.3s all ease-in-out;
 
+  @media screen and (max-width: 576px) {
+    margin-bottom: 10px;
+  }
+
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
     transition: 0.3s all ease-in-out;

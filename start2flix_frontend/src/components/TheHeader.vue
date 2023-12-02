@@ -190,9 +190,24 @@ export default {
     width: 200px;
     margin-right: 3rem;
 
+    @media screen and (max-width: 576px) {
+      margin-right: 1rem;
+      width: 175px;
+    }
+
     &--sm {
-      width: auto;
+      width: 150px;
       height: 50px;
+
+      @media screen and (max-width: 576px) {
+        width: 100px;
+        height: auto;
+      }
+
+      @media screen and (max-width: 476px) {
+        width: 75px;
+        height: auto;
+      }
     }
   }
 
@@ -209,8 +224,20 @@ export default {
     }
   }
 
+  .form-container {
+    img {
+      @media screen and (max-width: 476px) {
+        width: 17px;
+      }
+    }
+  }
+
   &__dropdown {
     .dropdown-toggle {
+      @media screen and (max-width: 476px) {
+        padding: 0;
+      }
+
       &::after {
         border-top: 0.4em solid white;
         border-right: 0.4em solid transparent;

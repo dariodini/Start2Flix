@@ -4,6 +4,10 @@
   &__title {
     margin-bottom: 0.75rem;
 
+    @media screen and (max-width: 476px) {
+      margin-bottom: 0;
+    }
+
     span:first-child {
       color: #e5e5e5;
       font-size: clamp(16px, 4vw, 22px);

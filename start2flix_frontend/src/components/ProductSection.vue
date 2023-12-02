@@ -21,15 +21,13 @@
           <img src="../assets/right-arrow.svg" alt="" class="carousel-button-icon" />
         </button>
       </div>
-      <div v-else>
-        <div class="row">
-          <div
-            v-for="product in products.results"
-            :key="product.id"
-            class="product col-xl-2 col-lg-3 col-md-4 col-sm-6 col-4"
-          >
-            <product-card :product="product"></product-card>
-          </div>
+      <div v-else class="row">
+        <div
+          v-for="product in products.results"
+          :key="product.id"
+          class="product col-xl-2 col-lg-3 col-md-4 col-sm-6 col-4"
+        >
+          <product-card :product="product"></product-card>
         </div>
       </div>
     </div>

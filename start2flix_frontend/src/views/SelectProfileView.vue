@@ -13,7 +13,7 @@
         :isEdit="manageProfile"
       ></profile>
     </div>
-    <div v-if="manageProfile" class="text-center mt-5">
+    <div v-if="manageProfile" class="text-center">
       <router-link :to="{ name: 'homepage' }" class="btn btn-sm btn-light" id="manage-edit-btn"
         >Fine</router-link
       >
@@ -69,7 +69,7 @@ export default {
 
   &__title {
     color: white;
-    font-size: 4.5rem;
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 400;
     margin-bottom: 3rem;
   }
@@ -79,11 +79,34 @@ export default {
     flex-direction: row;
     justify-content: center;
     column-gap: 5rem;
+    row-gap: 1.5rem;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+
+    @media screen and (max-width: 576px) {
+      flex-wrap: wrap;
+      column-gap: 3rem;
+    }
+
+    @media screen and (max-width: 476px) {
+      column-gap: 2rem;
+    }
   }
 }
 
 #manage-edit-btn {
   font-size: 1.25rem;
   padding: 0.25rem 2rem;
+  margin-top: 3rem;
+
+  @media screen and (max-width: 576px) {
+    margin-top: 2rem;
+  }
+
+  @media screen and (max-width: 476px) {
+    font-size: 1rem;
+  }
 }
 </style>

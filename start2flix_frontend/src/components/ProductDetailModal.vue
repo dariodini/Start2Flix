@@ -224,6 +224,10 @@ export default {
     z-index: 10;
 
     width: 45%;
+
+    @media screen and (max-width: 476px) {
+      width: 60%;
+    }
   }
 
   &__meta {

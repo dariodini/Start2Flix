@@ -33,6 +33,11 @@ export default {
     width: 30px;
     height: 30px;
     margin-right: 10px;
+
+    @media screen and (max-width: 476px) {
+      width: 25px;
+      height: 25px;
+    }
   }
 
   &__content {

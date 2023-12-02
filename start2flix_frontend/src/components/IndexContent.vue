@@ -1,9 +1,9 @@
 <template>
   <div class="index-content row">
-    <h2 class="index-content__index col-md-3">
+    <h2 class="index-content__index col-md-3 col-12">
       <slot name="index"></slot>
     </h2>
-    <div class="index-content__content col-md-9">
+    <div class="index-content__content col-md-9 col-12">
       <slot></slot>
     </div>
   </div>
@@ -28,6 +28,10 @@ export default {}
 
   &__content {
     padding-left: 2rem;
+
+    @media screen and (max-width: 767px) {
+      padding-left: 0;
+    }
   }
 }
 </style>
