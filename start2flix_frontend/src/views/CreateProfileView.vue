@@ -8,7 +8,7 @@
     </div>
     <div class="create-profile__body">
       <div class="create-profile__image">
-        <img src="../assets/avatar1.jpeg" />
+        <img :src="$helpers.getImagePath(1)" />
       </div>
       <form class="create-profile__form" ref="form" @submit.prevent>
         <div class="form-element">
