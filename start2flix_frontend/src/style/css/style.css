@@ -13445,6 +13445,11 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.router-link-exact-active {
+  color: white;
+  font-weight: 500;
+}
+
 .form-element {
   position: relative;
 }
@@ -13516,6 +13521,11 @@ textarea.form-control-lg {
   transition: font 0.1s ease, top 0.1s ease, transform 0.1s ease;
   transition: font 0.1s ease, top 0.1s ease, transform 0.1s ease, -webkit-transform 0.1s ease;
 }
+@media screen and (max-width: 476px) {
+  .floating-label {
+    font-size: 1rem;
+  }
+}
 
 .start-container {
   --max-width: 1500px;
@@ -13535,6 +13545,11 @@ textarea.form-control-lg {
 .section__title {
   margin-bottom: 0.75rem;
 }
+@media screen and (max-width: 476px) {
+  .section__title {
+    margin-bottom: 0;
+  }
+}
 .section__title span:first-child {
   color: #e5e5e5;
   font-size: clamp(16px, 4vw, 22px);
@@ -13550,5 +13565,63 @@ textarea.form-control-lg {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+}
+
+.header-action-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 2rem;
+     -moz-column-gap: 2rem;
+          column-gap: 2rem;
+}
+@media screen and (max-width: 576px) {
+  .header-action-nav {
+    -webkit-column-gap: 1rem;
+       -moz-column-gap: 1rem;
+            column-gap: 1rem;
+  }
+}
+.header-action-nav__link {
+  font-size: 0.875rem;
+  text-decoration: none;
+  color: rgb(208, 208, 208);
+}
+@media screen and (max-width: 476px) {
+  .header-action-nav__link {
+    font-size: 0.8rem;
+  }
+}
+
+.select-image {
+  --column-gap: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-column-gap: var(--column-gap);
+     -moz-column-gap: var(--column-gap);
+          column-gap: var(--column-gap);
+  max-width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.select-image__image {
+  max-width: calc(20% - var(--column-gap));
+  cursor: pointer;
+}
+.select-image__image--active {
+  outline: 2px solid white;
 }
 /*# sourceMappingURL=style.css.map */

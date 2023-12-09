@@ -113,23 +113,4 @@ export default {
     width: 100%;
   }
 }
-
-.select-image {
-  --column-gap: 1rem;
-
-  display: flex;
-  flex-direction: row;
-  column-gap: var(--column-gap);
-  max-width: 100%;
-  justify-content: space-between;
-
-  &__image {
-    max-width: calc(20% - var(--column-gap));
-    cursor: pointer;
-
-    &--active {
-      outline: 2px solid white;
-    }
-  }
-}
 </style>

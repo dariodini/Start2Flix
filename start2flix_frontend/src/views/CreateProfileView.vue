@@ -7,13 +7,36 @@
       </div>
     </div>
     <div class="create-profile__body">
-      <div class="create-profile__image">
-        <img :src="$helpers.getImagePath(1)" />
-      </div>
-      <form class="create-profile__form" ref="form" @submit.prevent>
-        <div class="form-element">
-          <input v-model="name" type="text" name="name" id="name" required />
-          <label class="floating-label" for="name">Name</label>
+      <form @submit.prevent="handleSubmit" class="signup__form">
+        <div class="row gx-3 gy-3">
+          <div class="col-12">
+            <div class="form-element">
+              <input v-model="name" type="text" name="firstName" id="firstName" required />
+              <label class="floating-label" for="firstName">Nome</label>
+            </div>
+          </div>
+          <div class="col-12">
+            <span v-if="submitErrors" class="form-element__error"> Inserisci un nome valido </span>
+          </div>
+          <div class="col-12">
+            <div class="form-element">
+              <label for="selectImage" class="form-label">Seleziona un'immagine: </label>
+              <div class="select-image">
+                <img
+                  @click="selectProfileImage(index)"
+                  v-for="index in 5"
+                  :key="index"
+                  :src="$helpers.getImagePath(index)"
+                  :class="[
+                    'select-image__image',
+                    {
+                      'select-image__image--active': image == index
+                    }
+                  ]"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </form>
     </div>
@@ -36,7 +59,8 @@ export default {
     return {
       utenteId: null,
       name: '',
-      image: 1
+      image: 0,
+      submitErrors: false
     }
   },
   beforeMount() {
@@ -44,19 +68,30 @@ export default {
   },
   computed: {
     isValid() {
-      return this.name.trim() !== ''
+      if (this.name.trim() !== '' && this.image > 0 && this.image < 6) {
+        return true
+      }
+      return false
     }
   },
   methods: {
+    selectProfileImage(index) {
+      this.image = index
+    },
     submitForm() {
-      const formData = new FormData()
-      formData.append('utenteId', this.utenteId)
-      formData.append('nome', this.name)
-      formData.append('image', this.image)
+      if (this.isValid) {
+        const formData = new FormData()
+        formData.append('utenteId', this.utenteId)
+        formData.append('nome', this.name)
+        formData.append('image', this.image)
 
-      this.$store.dispatch('addProfile', formData)
+        this.$store.dispatch('addProfile', formData)
+        this.$store.dispatch('getProfiles')
 
-      this.$router.push({ name: 'homepage' })
+        this.$router.push({ name: 'homepage' })
+      } else {
+        this.submitErrors = true
+      }
     },
     backHome() {
       this.$router.push({ name: 'homepage' })
@@ -107,25 +142,6 @@ export default {
     @media screen and (max-width: 420px) {
       flex-direction: column;
       row-gap: 1rem;
-    }
-  }
-
-  &__image {
-    width: 100px;
-    height: 100px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  &__form {
-    flex-grow: 1;
-
-    .form-element {
-      margin-bottom: 0;
     }
   }
 
