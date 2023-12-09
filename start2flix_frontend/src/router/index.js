@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import store from '../store/store.js'
 
 import SignupView from '../views/SignupView.vue'
@@ -12,7 +12,7 @@ import ManageAccountView from '../views/ManageAccountView.vue'
 import ManageProfileView from '../views/ManageProfileView.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
