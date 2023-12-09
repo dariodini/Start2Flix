@@ -172,7 +172,10 @@ const actions = {
       const response = await axios.request(options)
       const filteredData = {
         ...response.data,
-        results: response.data.results.filter((data) => data.poster_path && data.backdrop_path)
+        results: response.data.results.map((data) => ({
+            ...data,
+            media_type: 'movie'
+        })).filter((data) => data.poster_path && data.backdrop_path)
       }
       commit('SET_POPULAR_MOVIES', filteredData)
     } catch (error) {
@@ -256,7 +259,10 @@ const actions = {
       const response = await axios.request(options)
       const filteredData = {
         ...response.data,
-        results: response.data.results.filter((data) => data.poster_path && data.backdrop_path)
+        results: response.data.results.map((data) => ({
+            ...data,
+            media_type: 'tv'
+        })).filter((data) => data.poster_path && data.backdrop_path)
       }
       commit('SET_POPULAR_SERIES', filteredData)
     } catch (error) {
