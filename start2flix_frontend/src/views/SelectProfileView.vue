@@ -13,8 +13,16 @@
         :isEdit="manageProfile"
       ></profile>
     </div>
-    <div v-if="manageProfile" class="text-center">
-      <router-link :to="{ name: 'homepage' }" class="btn btn-sm btn-light" id="manage-edit-btn"
+    <div class="text-center">
+      <router-link class="add-profile" :to="{ name: 'create-profile' }">
+        <img src="/add-profile.svg" alt="add profile button" />
+        <span>Aggiungi profilo</span>
+      </router-link>
+      <router-link
+        v-if="manageProfile"
+        :to="{ name: 'homepage' }"
+        class="btn btn-sm btn-light"
+        id="manage-edit-btn"
         >Fine</router-link
       >
     </div>
@@ -92,6 +100,42 @@ export default {
 
     @media screen and (max-width: 476px) {
       column-gap: 2rem;
+    }
+  }
+}
+
+.add-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 12px;
+  text-decoration: none;
+
+  padding-top: 3rem;
+
+  img {
+    width: 50px;
+  }
+
+  span {
+    position: relative;
+    color: grey;
+
+    &::after {
+      content: '';
+      width: 100%;
+      border-bottom: 1px solid grey;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+  }
+
+  &:hover {
+    span:after {
+      opacity: 1;
     }
   }
 }
